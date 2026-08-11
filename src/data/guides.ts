@@ -138,6 +138,10 @@ export function getGuideBySlug(slug: string) {
   return guides.find((g) => g.slug === slug);
 }
 
+export function getGuideById(id: string) {
+  return guides.find((g) => g.id === id);
+}
+
 export function getFeaturedGuide() {
   return guides.find((g) => g.isFeatured);
 }

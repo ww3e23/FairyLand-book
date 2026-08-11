@@ -2,7 +2,7 @@ import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/layout/ContextPanel";
 
-export default function ComingSoonPage({
+export function ComingSoonPage({
   title,
   subtitle,
 }: {
