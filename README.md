@@ -2,6 +2,12 @@
 
 > 台服 · 王国复苏 · 竹取物语
 
+## 线上地址
+
+**https://ww3e23.github.io/FairyLand-book/**
+
+Push 到 `main` 即自动部署（GitHub Actions → GitHub Pages）。
+
 ## 本地开发
 
 ```bash
