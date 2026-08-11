@@ -4,7 +4,7 @@ import { ReportSection } from "@/components/layout/ContextPanel";
 import { TrustBadge } from "@/components/ui/TrustBadge";
 import { SourceList } from "@/components/ui/DataField";
 import { MarkdownContent } from "@/components/ui/MarkdownContent";
-import { EntityLink } from "@/lib/entities";
+import { EntityLink } from "@/components/ui/EntityLink";
 import { VERSION_LABEL } from "@/data/version";
 import type { GuideEntity } from "@/lib/types";
 
