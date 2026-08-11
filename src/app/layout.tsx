@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     "童话 Online 攻略数据库——搜索职业、技能、幻兽、装备、地图、任务。资料来源清楚，版本状态透明。",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://fairyland-book.vercel.app",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://ww3e23.github.io/FairyLand-book",
   ),
   openGraph: {
     title: "童協會｜童话 Online 攻略数据库",

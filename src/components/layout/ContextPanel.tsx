@@ -37,7 +37,7 @@ export function ContextPanel() {
             {HOT_SEARCHES.slice(0, 5).map((term, i) => (
               <li key={term}>
                 <Link
-                  href={`/search?q=${encodeURIComponent(term)}`}
+                  href={`/search/?q=${encodeURIComponent(term)}`}
                   className="flex items-center gap-2 text-sm text-coffee/80 hover:text-coffee"
                 >
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-coffee/8 text-[10px] font-bold text-coffee/60">

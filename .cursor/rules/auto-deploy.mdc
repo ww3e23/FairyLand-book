@@ -9,9 +9,10 @@ alwaysApply: true
 
 1. `git add` 相关变更
 2. `git commit`（简洁说明 why）
-3. `git push origin main`（或当前分支）
-4. 若 Vercel 未连 GitHub：运行 `npx vercel deploy --prod --yes`
+3. `git push origin main`
 
-前提：仓库已 push 到 GitHub 且 Vercel 项目已绑定该 repo 时，push 即触发自动部署。
+Push 到 `main` 后会自动触发 GitHub Actions，部署至：
 
-部署后向用户报告：**部署 URL** 与本次变更摘要，不要再问「要不要部署」。
+**https://ww3e23.github.io/FairyLand-book/**
+
+部署后向用户报告 URL 与变更摘要，不要再问「要不要部署」。

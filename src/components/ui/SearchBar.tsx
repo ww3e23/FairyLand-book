@@ -52,7 +52,7 @@ export function SearchBar({
 }: SearchBarProps) {
   const isLarge = size === "large";
   return (
-    <form action="/search" method="GET" className="w-full">
+    <form action="/search/" method="GET" className="w-full">
       <div
         className={`search-glow glass-card-strong flex items-center gap-3 rounded-2xl border border-coffee/10 transition-shadow ${
           isLarge ? "px-5 py-4" : "px-4 py-2.5"
@@ -102,7 +102,7 @@ export function HotSearchTags({ tags }: { tags: string[] }) {
       {tags.map((tag) => (
         <Link
           key={tag}
-          href={`/search?q=${encodeURIComponent(tag)}`}
+          href={`/search/?q=${encodeURIComponent(tag)}`}
           className="glass-card rounded-full px-3 py-1 text-xs text-coffee transition-colors hover:bg-cream/80 hover:text-coffee-dark"
         >
           {tag}
