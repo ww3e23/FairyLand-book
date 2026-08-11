@@ -2,6 +2,6 @@ import { ComingSoonPage } from "@/components/pages/ComingSoon";
 
 export default function ItemsPage() {
   return (
-    <ComingSoonPage title="装备道具" subtitle="装备与道具数据库建设中" />
+    <ComingSoonPage title="裝備道具" subtitle="裝備與道具資料庫建設中" />
   );
 }

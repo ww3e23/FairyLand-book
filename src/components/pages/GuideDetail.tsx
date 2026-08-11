@@ -26,7 +26,7 @@ export function GuideDetail({ guide }: { guide: GuideEntity }) {
         <TrustBadge status={guide.trustStatus} />
       </div>
 
-      <p className="mb-6 text-xs text-coffee/50">适用版本：{VERSION_LABEL}</p>
+      <p className="mb-6 text-xs text-coffee/50">適用版本：{VERSION_LABEL}</p>
 
       <div className="glass-card-strong rounded-xl p-5 md:p-8">
         <MarkdownContent content={guide.content} />
@@ -34,7 +34,7 @@ export function GuideDetail({ guide }: { guide: GuideEntity }) {
 
       {guide.linkedEntityIds && guide.linkedEntityIds.length > 0 && (
         <section className="mt-6">
-          <h2 className="mb-3 text-sm font-semibold text-coffee">相关链接</h2>
+          <h2 className="mb-3 text-sm font-semibold text-coffee">相關連結</h2>
           <div className="flex flex-wrap gap-2">
             {guide.linkedEntityIds.map((link) => (
               <EntityLink

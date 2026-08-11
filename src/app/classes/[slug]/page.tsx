@@ -13,9 +13,9 @@ export async function generateMetadata({
 }: PageProps<"/classes/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const cls = getClassBySlug(slug);
-  if (!cls) return { title: "找不到职业" };
+  if (!cls) return { title: "找不到職業" };
   return {
-    title: cls.metaTitle ?? `${cls.name}｜职业攻略`,
+    title: cls.metaTitle ?? `${cls.name}｜職業攻略`,
     description: cls.metaDescription,
   };
 }

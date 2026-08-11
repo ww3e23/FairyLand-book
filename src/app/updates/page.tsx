@@ -7,7 +7,7 @@ import { TYPE_LABELS } from "@/data/index";
 export default function UpdatesPage() {
   return (
     <AppShell>
-      <PageHeader title="版本更新" subtitle="资料库更新记录" />
+      <PageHeader title="版本更新" subtitle="資料庫更新記錄" />
       <div className="glass-card divide-y divide-coffee/8 rounded-xl overflow-hidden">
         {updates.map((u) => (
           <div key={u.id} className="px-4 py-3 text-sm">

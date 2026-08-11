@@ -1,6 +1,6 @@
 /**
- * Drizzle ORM Schema（预备接 Supabase PostgreSQL + Directus）
- * V1 资料暂存于 src/data/，后续 migrate 至此 schema
+ * Drizzle ORM Schema（預備接 Supabase PostgreSQL + Directus）
+ * V1 資料暫存於 src/data/，後續 migrate 至此 schema
  */
 import {
   pgTable,

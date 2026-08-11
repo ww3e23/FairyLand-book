@@ -7,15 +7,15 @@ import { classes } from "@/data/classes";
 import { BRANCH_LABEL } from "@/components/pages/ClassDetail";
 
 export const metadata: Metadata = {
-  title: "职业攻略",
+  title: "職業攻略",
 };
 
 export default function ClassesPage() {
   return (
     <AppShell>
       <PageHeader
-        title="职业攻略"
-        subtitle="童话 Online 各职业介绍、技能与养成方向"
+        title="職業攻略"
+        subtitle="童話 Online 各職業介紹、技能與養成方向"
       />
 
       <div className="space-y-4">
@@ -29,13 +29,13 @@ export default function ClassesPage() {
               <h2 className="text-lg font-bold text-coffee">{c.name}</h2>
               <span className="rounded-full bg-cream px-2 py-0.5 text-[10px] text-coffee/70">
                 {BRANCH_LABEL[c.branch]} ·{" "}
-                {c.tier === 2 ? "二转" : c.tier === 1 ? "一转" : "见习"}
+                {c.tier === 2 ? "二轉" : c.tier === 1 ? "一轉" : "見習"}
               </span>
               <TrustBadge status={c.trustStatus} />
             </div>
             {c.aliases && c.aliases.length > 0 && (
               <p className="mt-1 text-xs text-coffee/50">
-                别名：{c.aliases.join("、")}
+                別名：{c.aliases.join("、")}
               </p>
             )}
             <p className="mt-2 line-clamp-2 text-sm text-coffee/70">

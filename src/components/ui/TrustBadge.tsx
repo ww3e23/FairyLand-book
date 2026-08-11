@@ -1,26 +1,26 @@
-import type { FieldStatus, TrustStatus } from "@/lib/types";
+import type { TrustStatus, FieldStatus } from "@/lib/types";
 
 const TRUST_CONFIG: Record<
   TrustStatus,
   { label: string; emoji: string; className: string }
 > = {
   verified: {
-    label: "现版本已确认",
+    label: "現行版本已確認",
     emoji: "🟢",
     className: "bg-forest/10 text-forest border-forest/20",
   },
   pending: {
-    label: "尚待玩家确认",
+    label: "尚待玩家確認",
     emoji: "🟡",
     className: "bg-brass/15 text-coffee border-brass/30",
   },
   outdated: {
-    label: "旧版／可能已失效",
+    label: "舊版／可能已失效",
     emoji: "🔴",
     className: "bg-wine/10 text-wine border-wine/20",
   },
   conflict: {
-    label: "来源存在差异",
+    label: "來源存在差異",
     emoji: "⚠️",
     className: "bg-orange-brown/15 text-coffee border-orange-brown/30",
   },
@@ -39,10 +39,10 @@ export function TrustBadge({ status }: { status: TrustStatus }) {
 }
 
 const FIELD_STATUS_LABEL: Record<FieldStatus, string> = {
-  verified: "已确认",
-  uncertain: "尚不确定",
-  unavailable: "目前无资料",
-  conflict: "来源有差异",
+  verified: "已確認",
+  uncertain: "尚不確定",
+  unavailable: "目前無資料",
+  conflict: "來源有差異",
 };
 
 export function FieldStatusTag({ status }: { status: FieldStatus }) {

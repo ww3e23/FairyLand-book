@@ -2,6 +2,6 @@ import { ComingSoonPage } from "@/components/pages/ComingSoon";
 
 export default function PetsPage() {
   return (
-    <ComingSoonPage title="幻兽图鉴" subtitle="完整幻兽数据库建设中" />
+    <ComingSoonPage title="幻獸圖鑑" subtitle="完整幻獸資料庫建設中" />
   );
 }

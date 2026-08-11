@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-/** 简易 Markdown 渲染（V1：支持标题、链接、列表、表格、分隔线） */
+/** 簡易 Markdown 渲染（V1：支援標題、連結、列表、表格、分隔線） */
 export function MarkdownContent({ content }: { content: string }) {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];

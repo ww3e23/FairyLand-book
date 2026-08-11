@@ -15,7 +15,7 @@ export async function generateMetadata({
   const skill = getSkillBySlug(slug);
   if (!skill) return { title: "找不到技能" };
   return {
-    title: skill.metaTitle ?? `${skill.name}｜技能资料`,
+    title: skill.metaTitle ?? `${skill.name}｜技能資料`,
     description: skill.metaDescription,
   };
 }

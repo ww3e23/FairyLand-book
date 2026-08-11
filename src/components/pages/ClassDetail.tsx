@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
-import { PageHeader, ReportSection } from "@/components/layout/ContextPanel";
+import { ReportSection } from "@/components/layout/ContextPanel";
 import { TrustBadge } from "@/components/ui/TrustBadge";
 import { DataField, SourceList } from "@/components/ui/DataField";
 import { getSkillById } from "@/data/skills";
@@ -8,8 +8,8 @@ import { getGuideById } from "@/data/guides";
 import { VERSION_LABEL } from "@/data/version";
 import type { ClassEntity } from "@/lib/types";
 
-const BRANCH_LABEL = {
-  warrior: "战士系",
+export const BRANCH_LABEL = {
+  warrior: "戰士系",
   traveler: "旅人系",
   cleric: "修士系",
 };
@@ -26,7 +26,7 @@ export function ClassDetail({ cls }: { cls: ClassEntity }) {
     <AppShell>
       <div className="mb-4 flex flex-wrap items-center gap-2 text-sm text-coffee/60">
         <Link href="/classes" className="hover:text-coffee">
-          职业
+          職業
         </Link>
         <span>/</span>
         <span className="text-coffee">{cls.name}</span>
@@ -38,25 +38,25 @@ export function ClassDetail({ cls }: { cls: ClassEntity }) {
       </div>
 
       {cls.aliases && cls.aliases.length > 0 && (
-        <p className="mb-2 text-xs text-coffee/50">别名：{cls.aliases.join("、")}</p>
+        <p className="mb-2 text-xs text-coffee/50">別名：{cls.aliases.join("、")}</p>
       )}
 
-      <p className="mb-6 text-xs text-coffee/50">适用版本：{VERSION_LABEL}</p>
+      <p className="mb-6 text-xs text-coffee/50">適用版本：{VERSION_LABEL}</p>
 
       <div className="glass-card-strong rounded-xl p-5 md:p-6">
-        <DataField label="职业介绍" field={cls.description} />
+        <DataField label="職業介紹" field={cls.description} />
         {cls.attributeGuide && (
-          <DataField label="属性配点" field={cls.attributeGuide} />
+          <DataField label="屬性配點" field={cls.attributeGuide} />
         )}
         {cls.equipmentGuide && (
-          <DataField label="装备方向" field={cls.equipmentGuide} />
+          <DataField label="裝備方向" field={cls.equipmentGuide} />
         )}
-        {cls.petGuide && <DataField label="幻兽搭配" field={cls.petGuide} />}
+        {cls.petGuide && <DataField label="幻獸搭配" field={cls.petGuide} />}
       </div>
 
       {relatedSkills.length > 0 && (
         <section className="mt-6">
-          <h2 className="mb-3 text-sm font-semibold text-coffee">相关技能</h2>
+          <h2 className="mb-3 text-sm font-semibold text-coffee">相關技能</h2>
           <div className="flex flex-wrap gap-2">
             {relatedSkills.map(
               (s) =>
@@ -76,7 +76,7 @@ export function ClassDetail({ cls }: { cls: ClassEntity }) {
 
       {relatedGuides.length > 0 && (
         <section className="mt-6">
-          <h2 className="mb-3 text-sm font-semibold text-coffee">相关攻略</h2>
+          <h2 className="mb-3 text-sm font-semibold text-coffee">相關攻略</h2>
           <div className="space-y-2">
             {relatedGuides.map(
               (g) =>
@@ -102,5 +102,3 @@ export function ClassDetail({ cls }: { cls: ClassEntity }) {
     </AppShell>
   );
 }
-
-export { BRANCH_LABEL };

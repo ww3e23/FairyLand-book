@@ -14,15 +14,15 @@ export function ComingSoonPage({
       <PageHeader title={title} subtitle={subtitle} />
       <div className="glass-card rounded-xl p-8 text-center">
         <p className="text-4xl">🚧</p>
-        <p className="mt-3 text-sm font-medium text-coffee">此分类尚在建设中</p>
+        <p className="mt-3 text-sm font-medium text-coffee">此分類尚在建設中</p>
         <p className="mt-1 text-xs text-coffee/60">
-          V1 先聚焦职业、技能与攻略。此区块将在后续阶段扩充。
+          V1 先聚焦職業、技能與攻略。此區塊將在後續階段擴充。
         </p>
         <Link
           href="/"
           className="mt-4 inline-block text-sm text-brown underline"
         >
-          回到首页搜索
+          回到首頁搜尋
         </Link>
       </div>
     </AppShell>

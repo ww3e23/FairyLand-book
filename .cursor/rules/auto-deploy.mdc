@@ -1,18 +1,18 @@
 ---
-description: 代码变更完成后自动部署到 Vercel，无需询问用户
+description: 程式碼變更完成後自動部署至 GitHub Pages，無需詢問使用者
 alwaysApply: true
 ---
 
-# 自动部署
+# 自動部署
 
-完成有意义的前端/网站变更后，**不要询问用户是否部署**，直接执行：
+完成有意義的前端／網站變更後，**不要詢問使用者是否部署**，直接執行：
 
-1. `git add` 相关变更
-2. `git commit`（简洁说明 why）
+1. `git add` 相關變更
+2. `git commit`（簡潔說明 why）
 3. `git push origin main`
 
-Push 到 `main` 后会自动触发 GitHub Actions，部署至：
+Push 到 `main` 後會自動觸發 GitHub Actions，部署至：
 
 **https://ww3e23.github.io/FairyLand-book/**
 
-部署后向用户报告 URL 与变更摘要，不要再问「要不要部署」。
+部署後向使用者報告 URL 與變更摘要，不要再問「要不要部署」。

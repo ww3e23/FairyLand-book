@@ -13,8 +13,8 @@ export default function GuidesPage() {
   return (
     <AppShell>
       <PageHeader
-        title="新手 / 回锅攻略"
-        subtitle="文章型攻略，游戏名词会链接至资料库"
+        title="新手 / 回鍋攻略"
+        subtitle="文章型攻略，遊戲名詞會連結至資料庫"
       />
 
       <div className="space-y-4">
@@ -27,7 +27,7 @@ export default function GuidesPage() {
             <div className="flex flex-wrap items-center gap-2">
               {g.isFeatured && (
                 <span className="rounded-full bg-coffee px-2 py-0.5 text-[10px] font-bold text-brass">
-                  精选
+                  精選
                 </span>
               )}
               <h2 className="text-lg font-bold text-coffee">{g.name}</h2>

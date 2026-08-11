@@ -1,7 +1,7 @@
-/** 资料可信度状态 */
+/** 資料可信度狀態 */
 export type TrustStatus = "verified" | "pending" | "outdated" | "conflict";
 
-/** 字段级资料状态 */
+/** 欄位級資料狀態 */
 export type FieldStatus =
   | "verified"
   | "uncertain"
@@ -16,11 +16,11 @@ export interface SourceRef {
   reliability?: 1 | 2 | 3 | 4 | 5;
 }
 
-/** 带来源说明的资料字段 */
+/** 帶來源說明的資料欄位 */
 export interface DataField<T = string> {
   value?: T;
   status: FieldStatus;
-  /** 说明文字：不确定原因、待确认说明等 */
+  /** 說明文字：不確定原因、待確認說明等 */
   note?: string;
   references?: SourceRef[];
 }

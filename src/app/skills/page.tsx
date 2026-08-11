@@ -6,13 +6,13 @@ import { TrustBadge } from "@/components/ui/TrustBadge";
 import { skills } from "@/data/skills";
 
 export const metadata: Metadata = {
-  title: "技能资料",
+  title: "技能資料",
 };
 
 export default function SkillsPage() {
   return (
     <AppShell>
-      <PageHeader title="技能资料" subtitle="童话 Online 各职业技能查询" />
+      <PageHeader title="技能資料" subtitle="童話 Online 各職業技能查詢" />
 
       <div className="space-y-4">
         {skills.map((s) => (

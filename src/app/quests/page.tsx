@@ -2,6 +2,6 @@ import { ComingSoonPage } from "@/components/pages/ComingSoon";
 
 export default function QuestsPage() {
   return (
-    <ComingSoonPage title="任务攻略" subtitle="任务数据库建设中" />
+    <ComingSoonPage title="任務攻略" subtitle="任務資料庫建設中" />
   );
 }

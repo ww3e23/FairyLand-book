@@ -5,7 +5,7 @@ function SourceLinks({ references }: { references: SourceRef[] }) {
   if (!references.length) return null;
   return (
     <div className="mt-2 space-y-1">
-      <p className="text-xs font-medium text-coffee/70">相关参考：</p>
+      <p className="text-xs font-medium text-coffee/70">相關參考：</p>
       <ul className="space-y-1">
         {references.map((ref) => (
           <li key={ref.url}>
@@ -31,9 +31,6 @@ interface DataFieldProps {
 
 export function DataField({ label, field }: DataFieldProps) {
   const showValue = field.value && field.status !== "unavailable";
-  const showUnavailable =
-    field.status === "unavailable" &&
-    !field.note?.includes("待好心人士");
 
   return (
     <div className="border-b border-coffee/8 py-4 last:border-0">
@@ -48,12 +45,8 @@ export function DataField({ label, field }: DataFieldProps) {
 
       {field.status === "unavailable" && !field.value && (
         <p className="text-sm italic text-coffee/60">
-          目前无资料，待好心人士提供。
+          目前無資料，待好心人士提供。
         </p>
-      )}
-
-      {showUnavailable && field.note && (
-        <p className="text-sm italic text-coffee/60">{field.note}</p>
       )}
 
       {field.note && field.status !== "unavailable" && (
@@ -78,7 +71,7 @@ export function DataField({ label, field }: DataFieldProps) {
 export function SourceList({ sources }: { sources: SourceRef[] }) {
   return (
     <div className="glass-card rounded-xl p-4">
-      <h3 className="mb-3 text-sm font-semibold text-coffee">资料来源</h3>
+      <h3 className="mb-3 text-sm font-semibold text-coffee">資料來源</h3>
       <ul className="space-y-2">
         {sources.map((s) => (
           <li key={s.url} className="text-sm">

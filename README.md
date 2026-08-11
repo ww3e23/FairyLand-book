@@ -1,72 +1,72 @@
-# 童協會｜童话 Online 攻略数据库
+# 童協會｜童話 Online 攻略資料庫
 
-> 台服 · 王国复苏 · 竹取物语
+> 台服 · 王國復甦 · 竹取物語
 
-## 线上地址
+## 線上地址
 
 **https://ww3e23.github.io/FairyLand-book/**
 
-Push 到 `main` 即自动部署（GitHub Actions → GitHub Pages）。
+Push 到 `main` 即自動部署（GitHub Actions → GitHub Pages）。
 
-## 本地开发
+## 本地開發
 
 ```bash
 npm install
 npm run dev
 ```
 
-打开 [http://localhost:3000](http://localhost:3000)
+開啟 [http://localhost:3000](http://localhost:3000)
 
 ## 部署（Vercel）
 
-1. 将 repo 推送到 GitHub
-2. 在 [Vercel](https://vercel.com) Import 项目
-3. Framework Preset 选 **Next.js**，直接 Deploy
+1. 將 repo 推送到 GitHub
+2. 在 [Vercel](https://vercel.com) Import 專案
+3. Framework Preset 選 **Next.js**，直接 Deploy
 
-环境变量（可选）：
+環境變數（可選）：
 
-| 变量 | 说明 |
+| 變數 | 說明 |
 |------|------|
-| `NEXT_PUBLIC_SITE_URL` | 正式域名，用于 SEO canonical |
+| `NEXT_PUBLIC_SITE_URL` | 正式域名，用於 SEO canonical |
 
-## 后台管理（Directus）
+## 後台管理（Directus）
 
-V1 资料暂存在 `src/data/`（TypeScript），方便快速迭代。
+V1 資料暫存在 `src/data/`（TypeScript），方便快速迭代。
 
-后续接 Directus + PostgreSQL：
+後續接 Directus + PostgreSQL：
 
 ```bash
 docker compose up -d
 ```
 
 - Directus：http://localhost:8055
-- 默认帐号见 `docker-compose.yml`（部署前请修改密码）
+- 預設帳號見 `docker-compose.yml`（部署前請修改密碼）
 
-Schema 定义见 `src/db/schema.ts`。
+Schema 定義見 `src/db/schema.ts`。
 
-## 项目结构
+## 專案結構
 
 ```
 src/
-  app/          # Next.js 页面
-  components/   # UI 组件
-  data/         # V1 种子资料（JSON/TS）
-  db/           # Drizzle Schema（预备接 DB）
-  lib/          # 类型与工具
+  app/          # Next.js 頁面
+  components/   # UI 元件
+  data/         # V1 種子資料（JSON/TS）
+  db/           # Drizzle Schema（預備接 DB）
+  lib/          # 類型與工具
 ```
 
-## 资料原则
+## 資料原則
 
-- 不自行编造游戏事实
-- 不确定的字段：说明原因 + 提供参考链接
-- 真的没资料：显示「目前无资料，待好心人士提供」
-- 每条资料标注版本与可信度
+- 不自行編造遊戲事實
+- 不確定的欄位：說明原因 + 提供參考連結
+- 真的沒資料：顯示「目前無資料，待好心人士提供」
+- 每條資料標註版本與可信度
 
-## V1 范围
+## V1 範圍
 
-- ✅ 首页 + 搜索
-- ✅ 5 职业 + 兽王劈标杆页 + 回锅指南
-- ✅ 可信度 / 来源系统
-- ✅ 三栏 Desktop + Mobile 底栏
-- 🚧 幻兽 / 装备 / 工作 / 地图（占位）
-- 🚧 Directus / Meilisearch 接入（下一阶段）
+- ✅ 首頁 + 搜尋
+- ✅ 5 職業 + 獸王劈標竿頁 + 回鍋指南
+- ✅ 可信度 / 來源系統
+- ✅ 三欄 Desktop + Mobile 底欄
+- 🚧 幻獸 / 裝備 / 工作 / 地圖（占位）
+- 🚧 Directus / Meilisearch 接入（下一階段）

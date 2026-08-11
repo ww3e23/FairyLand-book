@@ -5,22 +5,7 @@ import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/SearchBar";
 import { NAV_ITEMS } from "@/data/index";
 
-const ICON_MAP: Record<string, string> = {
-  home: "home",
-  shield: "shield",
-  book: "book",
-  pet: "pet",
-  armor: "armor",
-  hammer: "hammer",
-  map: "map",
-  scroll: "scroll",
-  potion: "potion",
-  wrench: "wrench",
-  refresh: "refresh",
-  flag: "flag",
-};
-
-function NavIcon({ icon }: { icon: string }) {
+function NavIcon() {
   return (
     <span className="flex h-4 w-4 shrink-0 items-center justify-center opacity-70">
       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -57,7 +42,7 @@ export function Sidebar() {
                         : "text-coffee/70 hover:bg-cream/60 hover:text-coffee"
                     }`}
                   >
-                    <NavIcon icon={ICON_MAP[item.icon] ?? "home"} />
+                    <NavIcon />
                     {item.label}
                   </Link>
                 </li>
@@ -68,9 +53,9 @@ export function Sidebar() {
 
         <div className="border-t border-coffee/8 p-4">
           <div className="glass-card rounded-xl p-3">
-            <p className="text-xs font-semibold text-coffee">关于童協會</p>
+            <p className="text-xs font-semibold text-coffee">關於童協會</p>
             <p className="mt-1 text-[11px] leading-relaxed text-coffee/65">
-              我们是一群热爱童话 Online 的冒险者，希望整理完整、最新的游戏情报。
+              我們是一群熱愛童話 Online 的冒險者，希望整理完整、最新的遊戲情報。
             </p>
             <Link
               href="/about"
@@ -94,7 +79,7 @@ export function MobileHeader() {
           href="/recent"
           className="rounded-lg px-2 py-1.5 text-xs text-coffee/70 hover:bg-cream/60"
         >
-          最近浏览
+          最近瀏覽
         </Link>
       </div>
     </header>
@@ -104,9 +89,9 @@ export function MobileHeader() {
 export function MobileNav() {
   const pathname = usePathname();
   const items = [
-    { label: "首页", href: "/", icon: "home" },
-    { label: "分类", href: "/classes", icon: "grid" },
-    { label: "搜索", href: "/search", icon: "search", center: true },
+    { label: "首頁", href: "/", icon: "home" },
+    { label: "分類", href: "/classes", icon: "grid" },
+    { label: "搜尋", href: "/search", icon: "search", center: true },
     { label: "收藏", href: "/favorites", icon: "star" },
     { label: "更多", href: "/about", icon: "more" },
   ];
@@ -122,7 +107,7 @@ export function MobileNav() {
                 <Link
                   href={item.href}
                   className="flex h-14 w-14 items-center justify-center rounded-full bg-coffee text-warm-white shadow-lg ring-4 ring-parchment"
-                  aria-label="搜索"
+                  aria-label="搜尋"
                 >
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

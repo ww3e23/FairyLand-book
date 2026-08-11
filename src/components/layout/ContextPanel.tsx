@@ -7,7 +7,7 @@ export function ContextPanel() {
     <aside className="hidden xl:block xl:w-64 shrink-0">
       <div className="sticky top-0 space-y-4 py-6 pr-6">
         <div className="glass-card rounded-xl p-4">
-          <h3 className="mb-3 text-sm font-semibold text-coffee">快速链接</h3>
+          <h3 className="mb-3 text-sm font-semibold text-coffee">快速連結</h3>
           <div className="grid grid-cols-2 gap-2">
             {QUICK_LINKS.map((link) => (
               <Link
@@ -22,17 +22,17 @@ export function ContextPanel() {
         </div>
 
         <div className="glass-card rounded-xl p-4">
-          <h3 className="mb-2 text-sm font-semibold text-coffee">版本状态</h3>
-          <p className="text-xs text-coffee/70">目前资料适用版本</p>
+          <h3 className="mb-2 text-sm font-semibold text-coffee">版本狀態</h3>
+          <p className="text-xs text-coffee/70">目前資料適用版本</p>
           <p className="mt-1 text-sm font-medium text-coffee">{VERSION_LABEL}</p>
           <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-forest/10 px-2 py-0.5 text-[10px] font-medium text-forest">
             🟢 最新
           </span>
-          <p className="mt-2 text-[11px] text-coffee/50">最后更新：2026-08-11</p>
+          <p className="mt-2 text-[11px] text-coffee/50">最後更新：2026-08-11</p>
         </div>
 
         <div className="glass-card rounded-xl p-4">
-          <h3 className="mb-3 text-sm font-semibold text-coffee">热门搜索</h3>
+          <h3 className="mb-3 text-sm font-semibold text-coffee">熱門搜尋</h3>
           <ol className="space-y-1.5">
             {HOT_SEARCHES.slice(0, 5).map((term, i) => (
               <li key={term}>
@@ -77,15 +77,15 @@ export function PageHeader({
 export function ReportSection() {
   return (
     <div className="glass-card mt-8 rounded-xl border border-brass/20 p-5">
-      <h3 className="text-sm font-semibold text-coffee">这项资料有问题？</h3>
+      <h3 className="text-sm font-semibold text-coffee">這項資料有問題？</h3>
       <p className="mt-1 text-xs text-coffee/65">
-        发现错误、版本更新或想补充资料？欢迎回报，我们会列入待审核。
+        發現錯誤、版本更新或想補充資料？歡迎回報，我們會列入待審核。
       </p>
       <Link
         href="/report"
         className="mt-3 inline-flex items-center gap-1 rounded-lg bg-coffee px-4 py-2 text-xs font-medium text-warm-white transition-opacity hover:opacity-90"
       >
-        提交回报
+        提交回報
       </Link>
     </div>
   );

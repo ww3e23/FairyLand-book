@@ -4,26 +4,26 @@ import { SOURCES } from "./sources";
 export const skills: SkillEntity[] = [
   {
     id: "skill-beast-king-slash",
-    slug: "兽王劈",
-    name: "兽王劈",
-    aliases: ["兽劈", "兽王"],
+    slug: "獸王劈",
+    name: "獸王劈",
+    aliases: ["獸劈", "獸王"],
     classId: "class-berserker",
-    className: "狂战士",
+    className: "狂戰士",
     trustStatus: "pending",
     applicableVersion: "kingdom_revival",
     indexedAt: "2026-08-11",
     lastVerifiedAt: "2026-08-11",
     sources: [SOURCES.bahamutForum, SOURCES.baojia, SOURCES.bahamutWiki],
-    metaTitle: "兽王劈｜狂战士技能资料－童協會",
+    metaTitle: "獸王劈｜狂戰士技能資料－童協會",
     metaDescription:
-      "童话 Online 狂战士兽王劈技能资料、学习条件、技能效果、相关攻略与版本资讯。",
+      "童話 Online 狂戰士獸王劈技能資料、學習條件、技能效果、相關攻略與版本資訊。",
     skillType: {
       status: "uncertain",
-      value: "主动技能（物理攻击）",
-      note: "技能类型整理自巴哈姆特精华区与攻略讨论，正式分类名称以游戏内为准。",
+      value: "主動技能（物理攻擊）",
+      note: "技能類型整理自巴哈姆特精華區與攻略討論，正式分類名稱以遊戲內為準。",
       references: [
         {
-          title: "斧战士【狂战士】技能介绍－巴哈姆特精华区",
+          title: "斧戰士【狂戰士】技能介紹－巴哈姆特精華區",
           url: "https://forum.gamer.com.tw/listG.php?bsn=4211",
           reliability: 3,
         },
@@ -31,10 +31,10 @@ export const skills: SkillEntity[] = [
     },
     learnLevel: {
       status: "uncertain",
-      note: "学习等级需对照游戏内技能树确认。可参考巴哈姆特精华区狂战士技能介绍，但王国复苏版本可能有差异。",
+      note: "學習等級需對照遊戲內技能樹確認。可參考巴哈姆特精華區狂戰士技能介紹，但王國復甦版本可能有差異。",
       references: [
         {
-          title: "斧战士【狂战士】技能介绍",
+          title: "斧戰士【狂戰士】技能介紹",
           url: "https://forum.gamer.com.tw/listG.php?bsn=4211",
           reliability: 3,
         },
@@ -43,10 +43,10 @@ export const skills: SkillEntity[] = [
     },
     learnConditions: {
       status: "uncertain",
-      note: "兽王劈有技能任务流程。败家一族资料曾被玩家指出有误，巴哈姆特精华区有更正文章，建议对照以下连结自行确认。",
+      note: "獸王劈有技能任務流程。敗家一族資料曾被玩家指出有誤，巴哈姆特精華區有更正文章，建議對照以下連結自行確認。",
       references: [
         {
-          title: "斧战的兽王劈 -- 技能任务流程（败家资料错的所以贴上来更正）",
+          title: "斧戰的獸王劈 -- 技能任務流程（敗家資料錯的所以貼上來更正）",
           url: "https://forum.gamer.com.tw/listG.php?bsn=4211",
           reliability: 3,
         },
@@ -55,20 +55,20 @@ export const skills: SkillEntity[] = [
     },
     effect: {
       status: "uncertain",
-      note: "技能效果与伤害公式尚未有王国复苏版的可靠实测来源。请勿直接引用旧版数值。若你有最新实测，欢迎回报。",
+      note: "技能效果與傷害公式尚未有王國復甦版的可靠實測來源。請勿直接引用舊版數值。若你有最新實測，歡迎回報。",
       references: [SOURCES.bahamutForum],
     },
     mpCost: {
       status: "unavailable",
-      note: "目前无资料，待好心人士提供王国复苏版实测。",
+      note: "目前無資料，待好心人士提供王國復甦版實測。",
     },
     attackRange: {
       status: "unavailable",
-      note: "目前无资料，待好心人士提供。",
+      note: "目前無資料，待好心人士提供。",
     },
     targetType: {
       status: "unavailable",
-      note: "目前无资料，待好心人士提供。",
+      note: "目前無資料，待好心人士提供。",
     },
     relatedGuideIds: ["guide-berserker-build"],
   },

@@ -12,17 +12,17 @@ import type { EntityType } from "@/lib/types";
 
 const FILTERS: { value: EntityType | "all"; label: string }[] = [
   { value: "all", label: "全部" },
-  { value: "class", label: "职业" },
+  { value: "class", label: "職業" },
   { value: "skill", label: "技能" },
-  { value: "pet", label: "幻兽" },
-  { value: "item", label: "装备" },
+  { value: "pet", label: "幻獸" },
+  { value: "item", label: "裝備" },
   { value: "job", label: "工作" },
-  { value: "map", label: "地图" },
-  { value: "quest", label: "任务" },
+  { value: "map", label: "地圖" },
+  { value: "quest", label: "任務" },
   { value: "guide", label: "攻略" },
 ];
 
-export default function SearchPage() {
+export default function SearchClient() {
   const searchParams = useSearchParams();
   const q = searchParams.get("q") ?? "";
   const type = (searchParams.get("type") ?? "all") as EntityType | "all";
@@ -35,8 +35,8 @@ export default function SearchPage() {
   return (
     <AppShell showContext={false}>
       <PageHeader
-        title="搜索"
-        subtitle="搜索职业、技能、幻兽、装备、地图、任务……"
+        title="搜尋"
+        subtitle="搜尋職業、技能、幻獸、裝備、地圖、任務……"
       >
         <SearchBar defaultValue={q} autoFocus size="large" />
       </PageHeader>
@@ -58,23 +58,23 @@ export default function SearchPage() {
       </div>
 
       {!q && (
-        <p className="text-sm text-coffee/60">输入关键词开始搜索</p>
+        <p className="text-sm text-coffee/60">輸入關鍵字開始搜尋</p>
       )}
 
       {q && results.length === 0 && (
         <div className="glass-card rounded-xl p-6 text-center">
           <p className="text-sm text-coffee/70">
-            找不到「{q}」的相关结果
+            找不到「{q}」的相關結果
           </p>
           <p className="mt-1 text-xs text-coffee/50">
-            试试其他关键词或别名，例如「兽王劈」「光使」
+            試試其他關鍵字或別名，例如「獸王劈」「光使」
           </p>
         </div>
       )}
 
       {results.length > 0 && (
         <div className="space-y-3">
-          <p className="text-xs text-coffee/50">找到 {results.length} 笔结果</p>
+          <p className="text-xs text-coffee/50">找到 {results.length} 筆結果</p>
           {results.map((r) => (
             <Link
               key={r.id}

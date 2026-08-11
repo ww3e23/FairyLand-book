@@ -4,13 +4,13 @@ import { guides } from "./guides";
 import type { EntityType, SearchResult } from "@/lib/types";
 
 const TYPE_LABELS: Record<EntityType, string> = {
-  class: "职业",
+  class: "職業",
   skill: "技能",
-  pet: "幻兽",
-  item: "装备",
+  pet: "幻獸",
+  item: "裝備",
   job: "工作",
-  map: "地图",
-  quest: "任务",
+  map: "地圖",
+  quest: "任務",
   guide: "攻略",
 };
 
@@ -99,43 +99,43 @@ export { TYPE_LABELS, TYPE_PATH };
 
 export const HOT_SEARCHES = [
   "光之使者",
-  "狂战士",
-  "兽王劈",
-  "力量宠",
-  "迷装",
-  "挖矿",
-  "幸运",
+  "狂戰士",
+  "獸王劈",
+  "力量寵",
+  "迷裝",
+  "挖礦",
+  "幸運",
 ];
 
 export const CATEGORY_STATS = [
-  { label: "职业攻略", count: "8 职业", href: "/classes", icon: "shield" },
-  { label: "技能资料", count: "512 笔", href: "/skills", icon: "book" },
-  { label: "幻兽图鉴", count: "327 种", href: "/pets", icon: "pet" },
-  { label: "装备道具", count: "1280 项", href: "/items", icon: "armor" },
-  { label: "工作技能", count: "23 种", href: "/jobs", icon: "hammer" },
-  { label: "地图怪物", count: "85 张", href: "/maps", icon: "map" },
+  { label: "職業攻略", count: "8 職業", href: "/classes", icon: "shield" },
+  { label: "技能資料", count: "512 筆", href: "/skills", icon: "book" },
+  { label: "幻獸圖鑑", count: "327 種", href: "/pets", icon: "pet" },
+  { label: "裝備道具", count: "1280 項", href: "/items", icon: "armor" },
+  { label: "工作技能", count: "23 種", href: "/jobs", icon: "hammer" },
+  { label: "地圖怪物", count: "85 張", href: "/maps", icon: "map" },
 ];
 
 export const QUICK_LINKS = [
-  { label: "新手入门", href: "/guides/2026回锅玩家完整指南" },
-  { label: "练功地点", href: "/maps" },
-  { label: "幻兽推荐", href: "/pets" },
-  { label: "赚取可因", href: "/guides" },
-  { label: "装备制作", href: "/jobs" },
-  { label: "迷宫攻略", href: "/guides" },
+  { label: "新手入門", href: "/guides/2026回鍋玩家完整指南" },
+  { label: "練功地點", href: "/maps" },
+  { label: "幻獸推薦", href: "/pets" },
+  { label: "賺取可因", href: "/guides" },
+  { label: "裝備製作", href: "/jobs" },
+  { label: "迷宮攻略", href: "/guides" },
 ];
 
 export const NAV_ITEMS = [
-  { label: "首页", href: "/", icon: "home" },
-  { label: "职业", href: "/classes", icon: "shield" },
+  { label: "首頁", href: "/", icon: "home" },
+  { label: "職業", href: "/classes", icon: "shield" },
   { label: "技能", href: "/skills", icon: "book" },
-  { label: "幻兽", href: "/pets", icon: "pet" },
-  { label: "装备道具", href: "/items", icon: "armor" },
+  { label: "幻獸", href: "/pets", icon: "pet" },
+  { label: "裝備道具", href: "/items", icon: "armor" },
   { label: "工作技能", href: "/jobs", icon: "hammer" },
-  { label: "地图怪物", href: "/maps", icon: "map" },
-  { label: "任务攻略", href: "/quests", icon: "scroll" },
-  { label: "新手回锅", href: "/guides", icon: "potion" },
-  { label: "游戏工具", href: "/tools", icon: "wrench" },
+  { label: "地圖怪物", href: "/maps", icon: "map" },
+  { label: "任務攻略", href: "/quests", icon: "scroll" },
+  { label: "新手回鍋", href: "/guides", icon: "potion" },
+  { label: "遊戲工具", href: "/tools", icon: "wrench" },
   { label: "版本更新", href: "/updates", icon: "refresh" },
-  { label: "情报回报", href: "/report", icon: "flag" },
+  { label: "情報回報", href: "/report", icon: "flag" },
 ];

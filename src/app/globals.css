@@ -95,7 +95,7 @@ body {
   backdrop-filter: blur(8px);
 }
 
-/* 搜索框 */
+/* 搜尋框 */
 .search-glow:focus-within {
   box-shadow: 0 0 0 3px rgba(184, 149, 106, 0.25);
 }

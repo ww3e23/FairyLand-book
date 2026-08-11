@@ -2,6 +2,6 @@ import { ComingSoonPage } from "@/components/pages/ComingSoon";
 
 export default function MapsPage() {
   return (
-    <ComingSoonPage title="地图怪物" subtitle="地图与怪物数据库建设中" />
+    <ComingSoonPage title="地圖怪物" subtitle="地圖與怪物資料庫建設中" />
   );
 }

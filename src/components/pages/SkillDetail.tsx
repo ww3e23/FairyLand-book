@@ -1,7 +1,6 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import { AppShell } from "@/components/layout/AppShell";
-import { PageHeader, ReportSection } from "@/components/layout/ContextPanel";
+import { ReportSection } from "@/components/layout/ContextPanel";
 import { TrustBadge } from "@/components/ui/TrustBadge";
 import { DataField, SourceList } from "@/components/ui/DataField";
 import { getClassById } from "@/data/classes";
@@ -34,13 +33,13 @@ export function SkillDetail({ skill }: { skill: SkillEntity }) {
 
       {skill.aliases && skill.aliases.length > 0 && (
         <p className="mb-2 text-xs text-coffee/50">
-          别名：{skill.aliases.join("、")}
+          別名：{skill.aliases.join("、")}
         </p>
       )}
 
       {cls && (
         <p className="mb-2 text-sm text-coffee/70">
-          所属职业：
+          所屬職業：
           <Link
             href={`/classes/${cls.slug}`}
             className="ml-1 font-medium text-brown underline underline-offset-2"
@@ -51,23 +50,23 @@ export function SkillDetail({ skill }: { skill: SkillEntity }) {
       )}
 
       <p className="mb-6 text-xs text-coffee/50">
-        适用版本：{VERSION_LABEL}
-        {skill.lastVerifiedAt && ` · 最后确认：${skill.lastVerifiedAt}`}
+        適用版本：{VERSION_LABEL}
+        {skill.lastVerifiedAt && ` · 最後確認：${skill.lastVerifiedAt}`}
       </p>
 
       <div className="glass-card-strong rounded-xl p-5 md:p-6">
-        <DataField label="技能类型" field={skill.skillType} />
-        <DataField label="学习等级" field={skill.learnLevel} />
-        <DataField label="学习条件" field={skill.learnConditions} />
+        <DataField label="技能類型" field={skill.skillType} />
+        <DataField label="學習等級" field={skill.learnLevel} />
+        <DataField label="學習條件" field={skill.learnConditions} />
         <DataField label="技能效果" field={skill.effect} />
         <DataField label="消耗" field={skill.mpCost} />
-        <DataField label="攻击范围" field={skill.attackRange} />
-        <DataField label="作用目标" field={skill.targetType} />
+        <DataField label="攻擊範圍" field={skill.attackRange} />
+        <DataField label="作用目標" field={skill.targetType} />
       </div>
 
       {relatedGuides.length > 0 && (
         <section className="mt-6">
-          <h2 className="mb-3 text-sm font-semibold text-coffee">相关攻略</h2>
+          <h2 className="mb-3 text-sm font-semibold text-coffee">相關攻略</h2>
           <div className="space-y-2">
             {relatedGuides.map(
               (g) =>
