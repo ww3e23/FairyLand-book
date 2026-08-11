@@ -1,0 +1,38 @@
+services:
+  directus:
+    image: directus/directus:latest
+    ports:
+      - "8055:8055"
+    volumes:
+      - directus_uploads:/directus/uploads
+      - directus_extensions:/directus/extensions
+    environment:
+      SECRET: "change-me-to-a-random-secret"
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "change-me"
+      DB_CLIENT: "pg"
+      DB_HOST: "db"
+      DB_PORT: "5432"
+      DB_DATABASE: "fairyland"
+      DB_USER: "fairyland"
+      DB_PASSWORD: "fairyland"
+      WEBSOCKETS_ENABLED: "true"
+      PUBLIC_URL: "http://localhost:8055"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: fairyland
+      POSTGRES_PASSWORD: fairyland
+      POSTGRES_DB: fairyland
+    ports:
+      - "5432:5432"
+
+volumes:
+  directus_uploads:
+  directus_extensions:
+  pg_data:

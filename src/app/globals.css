@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+:root {
+  --parchment: #f7f0e3;
+  --parchment-light: #faf6ee;
+  --warm-white: #fffdf8;
+  --cream: #f0e6d6;
+  --brown-light: #c4a882;
+  --brown: #8b6914;
+  --coffee: #4a3728;
+  --coffee-dark: #2c2118;
+  --brass: #b8956a;
+  --forest: #4a6741;
+  --wine: #7a3b3b;
+  --navy: #3d4f5f;
+  --orange-brown: #a67c52;
+
+  --glass-bg: rgba(255, 253, 248, 0.72);
+  --glass-border: rgba(74, 55, 40, 0.12);
+  --glass-shadow: 0 8px 32px rgba(44, 33, 24, 0.08);
+}
+
+@theme inline {
+  --color-parchment: var(--parchment);
+  --color-parchment-light: var(--parchment-light);
+  --color-warm-white: var(--warm-white);
+  --color-cream: var(--cream);
+  --color-brown-light: var(--brown-light);
+  --color-brown: var(--brown);
+  --color-coffee: var(--coffee);
+  --color-coffee-dark: var(--coffee-dark);
+  --color-brass: var(--brass);
+  --color-forest: var(--forest);
+  --color-wine: var(--wine);
+  --color-navy: var(--navy);
+  --color-orange-brown: var(--orange-brown);
+  --font-sans: var(--font-noto-sans-tc);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--parchment);
+  color: var(--coffee-dark);
+  font-family: var(--font-noto-sans-tc), "Microsoft JhengHei", sans-serif;
+  min-height: 100dvh;
+}
+
+/* 纸张纹理背景 */
+.paper-bg {
+  background-color: var(--parchment);
+  background-image:
+    radial-gradient(
+      ellipse at 20% 0%,
+      rgba(184, 149, 106, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 100%,
+      rgba(74, 103, 65, 0.08) 0%,
+      transparent 50%
+    ),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* 玻璃层叠卡片 */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-card-strong {
+  background: rgba(255, 253, 248, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(74, 55, 40, 0.15);
+  box-shadow: 0 12px 40px rgba(44, 33, 24, 0.1);
+}
+
+.glass-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 253, 248, 0.6) 0%,
+    rgba(247, 240, 227, 0.4) 100%
+  );
+  backdrop-filter: blur(8px);
+}
+
+/* 搜索框 */
+.search-glow:focus-within {
+  box-shadow: 0 0 0 3px rgba(184, 149, 106, 0.25);
+}
+
+/* Markdown 内容 */
+.prose-fairy h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--coffee);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-fairy h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--coffee);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-fairy p {
+  margin-bottom: 0.75rem;
+  line-height: 1.75;
+  color: var(--coffee-dark);
+}
+
+.prose-fairy ul,
+.prose-fairy ol {
+  margin-bottom: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.prose-fairy li {
+  margin-bottom: 0.35rem;
+  line-height: 1.65;
+}
+
+.prose-fairy a {
+  color: var(--brown);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-fairy a:hover {
+  color: var(--coffee);
+}
+
+.prose-fairy table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.prose-fairy th,
+.prose-fairy td {
+  border: 1px solid rgba(74, 55, 40, 0.15);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.prose-fairy th {
+  background: rgba(247, 240, 227, 0.8);
+  font-weight: 600;
+}
+
+.prose-fairy hr {
+  border: none;
+  border-top: 1px solid rgba(74, 55, 40, 0.12);
+  margin: 1.5rem 0;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(74, 55, 40, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 55, 40, 0.35);
+}

@@ -1,0 +1,141 @@
+import { classes } from "./classes";
+import { skills } from "./skills";
+import { guides } from "./guides";
+import type { EntityType, SearchResult } from "@/lib/types";
+
+const TYPE_LABELS: Record<EntityType, string> = {
+  class: "职业",
+  skill: "技能",
+  pet: "幻兽",
+  item: "装备",
+  job: "工作",
+  map: "地图",
+  quest: "任务",
+  guide: "攻略",
+};
+
+const TYPE_PATH: Record<EntityType, string> = {
+  class: "classes",
+  skill: "skills",
+  pet: "pets",
+  item: "items",
+  job: "jobs",
+  map: "maps",
+  quest: "quests",
+  guide: "guides",
+};
+
+export function buildSearchIndex(): SearchResult[] {
+  const results: SearchResult[] = [];
+
+  for (const c of classes) {
+    results.push({
+      id: c.id,
+      type: "class",
+      name: c.name,
+      slug: c.slug,
+      description: c.description.value ?? c.description.note ?? "",
+      trustStatus: c.trustStatus,
+      updatedAt: c.indexedAt,
+      href: `/${TYPE_PATH.class}/${c.slug}`,
+    });
+  }
+
+  for (const s of skills) {
+    results.push({
+      id: s.id,
+      type: "skill",
+      name: s.name,
+      slug: s.slug,
+      description:
+        s.effect.value ?? s.effect.note ?? `${s.className ?? ""}技能`.trim(),
+      trustStatus: s.trustStatus,
+      updatedAt: s.lastVerifiedAt ?? s.indexedAt,
+      href: `/${TYPE_PATH.skill}/${s.slug}`,
+    });
+  }
+
+  for (const g of guides) {
+    results.push({
+      id: g.id,
+      type: "guide",
+      name: g.name,
+      slug: g.slug,
+      description: g.summary,
+      trustStatus: g.trustStatus,
+      updatedAt: g.indexedAt,
+      href: `/${TYPE_PATH.guide}/${g.slug}`,
+    });
+  }
+
+  return results;
+}
+
+export function search(
+  query: string,
+  typeFilter?: EntityType | "all",
+): SearchResult[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+
+  const index = buildSearchIndex();
+  const allEntities = [...classes, ...skills, ...guides];
+
+  return index.filter((item) => {
+    if (typeFilter && typeFilter !== "all" && item.type !== typeFilter)
+      return false;
+
+    const entity = allEntities.find((e) => e.id === item.id);
+    const aliases = entity?.aliases ?? [];
+    const haystack = [item.name, item.description, ...aliases]
+      .join(" ")
+      .toLowerCase();
+
+    return haystack.includes(q) || item.name.toLowerCase().includes(q);
+  });
+}
+
+export { TYPE_LABELS, TYPE_PATH };
+
+export const HOT_SEARCHES = [
+  "光之使者",
+  "狂战士",
+  "兽王劈",
+  "力量宠",
+  "迷装",
+  "挖矿",
+  "幸运",
+];
+
+export const CATEGORY_STATS = [
+  { label: "职业攻略", count: "8 职业", href: "/classes", icon: "shield" },
+  { label: "技能资料", count: "512 笔", href: "/skills", icon: "book" },
+  { label: "幻兽图鉴", count: "327 种", href: "/pets", icon: "pet" },
+  { label: "装备道具", count: "1280 项", href: "/items", icon: "armor" },
+  { label: "工作技能", count: "23 种", href: "/jobs", icon: "hammer" },
+  { label: "地图怪物", count: "85 张", href: "/maps", icon: "map" },
+];
+
+export const QUICK_LINKS = [
+  { label: "新手入门", href: "/guides/2026回锅玩家完整指南" },
+  { label: "练功地点", href: "/maps" },
+  { label: "幻兽推荐", href: "/pets" },
+  { label: "赚取可因", href: "/guides" },
+  { label: "装备制作", href: "/jobs" },
+  { label: "迷宫攻略", href: "/guides" },
+];
+
+export const NAV_ITEMS = [
+  { label: "首页", href: "/", icon: "home" },
+  { label: "职业", href: "/classes", icon: "shield" },
+  { label: "技能", href: "/skills", icon: "book" },
+  { label: "幻兽", href: "/pets", icon: "pet" },
+  { label: "装备道具", href: "/items", icon: "armor" },
+  { label: "工作技能", href: "/jobs", icon: "hammer" },
+  { label: "地图怪物", href: "/maps", icon: "map" },
+  { label: "任务攻略", href: "/quests", icon: "scroll" },
+  { label: "新手回锅", href: "/guides", icon: "potion" },
+  { label: "游戏工具", href: "/tools", icon: "wrench" },
+  { label: "版本更新", href: "/updates", icon: "refresh" },
+  { label: "情报回报", href: "/report", icon: "flag" },
+];
