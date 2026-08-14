@@ -3,20 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/SearchBar";
+import { AppIcon } from "@/components/ui/Icon";
 import { NAV_ITEMS } from "@/data/index";
-
-function NavIcon() {
-  return (
-    <span className="flex h-4 w-4 shrink-0 items-center justify-center opacity-70">
-      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-        <circle cx="12" cy="12" r="8" />
-      </svg>
-    </span>
-  );
-}
 
 export function Sidebar() {
   const pathname = usePathname();
+  const readyItems = NAV_ITEMS.filter((item) => item.ready !== false);
+  const soonItems = NAV_ITEMS.filter((item) => item.ready === false);
 
   return (
     <aside className="hidden lg:flex lg:w-56 xl:w-60 shrink-0 flex-col border-r border-coffee/10">
@@ -27,7 +20,7 @@ export function Sidebar() {
 
         <nav className="flex-1 overflow-y-auto px-3 py-4">
           <ul className="space-y-0.5">
-            {NAV_ITEMS.map((item) => {
+            {readyItems.map((item) => {
               const active =
                 item.href === "/"
                   ? pathname === "/"
@@ -42,13 +35,34 @@ export function Sidebar() {
                         : "text-coffee/70 hover:bg-cream/60 hover:text-coffee"
                     }`}
                   >
-                    <NavIcon />
+                    <AppIcon name={item.icon} className="h-4 w-4 shrink-0 opacity-80" />
                     {item.label}
                   </Link>
                 </li>
               );
             })}
           </ul>
+
+          {soonItems.length > 0 && (
+            <div className="mt-5">
+              <p className="mb-1 px-3 text-[10px] font-semibold tracking-wide text-coffee/40 uppercase">
+                即將推出
+              </p>
+              <ul className="space-y-0.5">
+                {soonItems.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-coffee/40 hover:bg-cream/40 hover:text-coffee/60"
+                    >
+                      <AppIcon name={item.icon} className="h-4 w-4 shrink-0" />
+                      <span>{item.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </nav>
 
         <div className="border-t border-coffee/8 p-4">
@@ -63,6 +77,12 @@ export function Sidebar() {
             >
               加入童協會家族 →
             </Link>
+            <Link
+              href="/admin/icons"
+              className="mt-1 block text-[10px] text-coffee/40 hover:text-coffee/70"
+            >
+              圖示管理
+            </Link>
           </div>
         </div>
       </div>
@@ -74,14 +94,12 @@ export function MobileHeader() {
   return (
     <header className="glass-card-strong sticky top-0 z-40 flex items-center justify-between border-b border-coffee/10 px-4 py-3 lg:hidden">
       <Logo compact />
-      <div className="flex items-center gap-2">
-        <Link
-          href="/recent"
-          className="rounded-lg px-2 py-1.5 text-xs text-coffee/70 hover:bg-cream/60"
-        >
-          最近瀏覽
-        </Link>
-      </div>
+      <Link
+        href="/guides"
+        className="rounded-lg px-2 py-1.5 text-xs text-coffee/70 hover:bg-cream/60"
+      >
+        攻略
+      </Link>
     </header>
   );
 }
@@ -90,17 +108,20 @@ export function MobileNav() {
   const pathname = usePathname();
   const items = [
     { label: "首頁", href: "/", icon: "home" },
-    { label: "分類", href: "/classes", icon: "grid" },
+    { label: "職業", href: "/classes", icon: "shield" },
     { label: "搜尋", href: "/search", icon: "search", center: true },
-    { label: "收藏", href: "/favorites", icon: "star" },
-    { label: "更多", href: "/about", icon: "more" },
+    { label: "道具", href: "/items", icon: "armor" },
+    { label: "攻略", href: "/guides", icon: "potion" },
   ];
 
   return (
     <nav className="glass-card-strong fixed bottom-0 left-0 right-0 z-50 border-t border-coffee/10 lg:hidden">
       <ul className="flex items-end justify-around px-2 pb-safe pt-1">
         {items.map((item) => {
-          const active = pathname === item.href;
+          const active =
+            item.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(item.href);
           if (item.center) {
             return (
               <li key={item.href} className="-mt-4">
@@ -109,9 +130,7 @@ export function MobileNav() {
                   className="flex h-14 w-14 items-center justify-center rounded-full bg-coffee text-warm-white shadow-lg ring-4 ring-parchment"
                   aria-label="搜尋"
                 >
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
+                  <AppIcon name="search" className="h-6 w-6" />
                 </Link>
               </li>
             );
@@ -124,7 +143,7 @@ export function MobileNav() {
                   active ? "text-coffee font-medium" : "text-coffee/50"
                 }`}
               >
-                <span className="h-5 w-5 rounded bg-coffee/10" />
+                <AppIcon name={item.icon} className="h-5 w-5" />
                 {item.label}
               </Link>
             </li>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 import { SearchBar, HotSearchTags } from "@/components/ui/SearchBar";
+import { AppIcon } from "@/components/ui/Icon";
 import {
   HOT_SEARCHES,
   CATEGORY_STATS,
@@ -8,9 +9,12 @@ import {
 } from "@/data/index";
 import { updates, getFeaturedGuide } from "@/data/guides";
 import { VERSION_LABEL } from "@/data/version";
+import { getEntityHref } from "@/lib/entities";
 
 export default function HomePage() {
   const featured = getFeaturedGuide();
+  const readyCats = CATEGORY_STATS.filter((c) => c.ready !== false);
+  const soonCats = CATEGORY_STATS.filter((c) => c.ready === false);
 
   return (
     <AppShell>
@@ -38,11 +42,14 @@ export default function HomePage() {
 
       {featured && (
         <section className="mb-8">
-          <div className="glass-card-strong overflow-hidden rounded-2xl">
+          <Link
+            href={`/guides/${featured.slug}`}
+            className="glass-card-strong group block overflow-hidden rounded-2xl transition-shadow hover:shadow-md"
+          >
             <div className="grid md:grid-cols-2">
               <div className="flex flex-col justify-center p-6 md:p-8">
                 <span className="mb-2 inline-block w-fit rounded-full bg-coffee px-2.5 py-0.5 text-[10px] font-bold tracking-wide text-brass uppercase">
-                  精選攻略 NEW
+                  精選攻略
                 </span>
                 <h2 className="text-xl font-bold text-coffee md:text-2xl">
                   {featured.name}
@@ -50,54 +57,97 @@ export default function HomePage() {
                 <p className="mt-2 text-sm leading-relaxed text-coffee/70">
                   {featured.summary}
                 </p>
-                <Link
-                  href={`/guides/${featured.slug}`}
-                  className="mt-4 inline-flex w-fit items-center gap-1 rounded-xl bg-coffee px-5 py-2.5 text-sm font-medium text-warm-white transition-opacity hover:opacity-90"
-                >
+                <span className="mt-4 inline-flex w-fit items-center gap-1 rounded-xl bg-coffee px-5 py-2.5 text-sm font-medium text-warm-white">
                   立即查看 →
-                </Link>
+                </span>
               </div>
-              <div className="relative min-h-[160px] bg-gradient-to-br from-coffee/30 via-brass/20 to-forest/20 md:min-h-[220px]" />
+              <div className="relative flex min-h-[140px] items-center justify-center bg-gradient-to-br from-coffee/25 via-brass/15 to-forest/20 md:min-h-[200px]">
+                <div className="flex items-center gap-4 text-warm-white/80">
+                  <AppIcon name="book" className="h-12 w-12 opacity-80" />
+                  <AppIcon name="potion" className="h-16 w-16" />
+                  <AppIcon name="shield" className="h-12 w-12 opacity-80" />
+                </div>
+              </div>
             </div>
-          </div>
+          </Link>
         </section>
       )}
 
       <section className="mb-8">
         <h2 className="mb-4 text-lg font-bold text-coffee">熱門分類</h2>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3">
-          {CATEGORY_STATS.map((cat) => (
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-4">
+          {readyCats.map((cat) => (
             <Link
               key={cat.label}
               href={cat.href}
               className="glass-card group rounded-xl p-4 transition-all hover:shadow-md"
             >
               <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-coffee/8 text-coffee transition-colors group-hover:bg-coffee/15">
-                <span className="text-lg">📖</span>
+                <AppIcon name={cat.icon} className="h-5 w-5" />
               </div>
               <p className="text-sm font-semibold text-coffee">{cat.label}</p>
               <p className="text-xs text-coffee/50">{cat.count}</p>
             </Link>
           ))}
         </div>
+        {soonCats.length > 0 && (
+          <div className="mt-4">
+            <p className="mb-2 text-xs font-medium text-coffee/45">即將推出</p>
+            <div className="grid grid-cols-2 gap-3">
+              {soonCats.map((cat) => (
+                <div
+                  key={cat.label}
+                  className="glass-card rounded-xl p-4 opacity-60"
+                >
+                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-coffee/8 text-coffee/50">
+                    <AppIcon name={cat.icon} className="h-5 w-5" />
+                  </div>
+                  <p className="text-sm font-semibold text-coffee">{cat.label}</p>
+                  <p className="text-xs text-coffee/50">資料尚未收錄</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <section>
         <h2 className="mb-4 text-lg font-bold text-coffee">最新更新</h2>
-        <div className="glass-card divide-y divide-coffee/8 rounded-xl overflow-hidden">
-          {updates.map((u) => (
-            <div
-              key={u.id}
-              className="flex flex-wrap items-center gap-2 px-4 py-3 text-sm"
-            >
-              <span className="rounded-full bg-forest/10 px-2 py-0.5 text-[10px] font-medium text-forest">
-                {TYPE_LABELS[u.entityType]}
-              </span>
-              <span className="font-medium text-coffee">{u.entityName}</span>
-              <span className="text-coffee/60">{u.changeSummary}</span>
-              <span className="ml-auto text-xs text-coffee/40">{u.publishedAt}</span>
-            </div>
-          ))}
+        <div className="glass-card divide-y divide-coffee/8 overflow-hidden rounded-xl">
+          {updates.map((u) => {
+            const href = getEntityHref(u.entityType, u.entityId);
+            const inner = (
+              <>
+                <span className="rounded-full bg-forest/10 px-2 py-0.5 text-[10px] font-medium text-forest">
+                  {TYPE_LABELS[u.entityType]}
+                </span>
+                <span className="font-medium text-coffee">{u.entityName}</span>
+                <span className="text-coffee/60">{u.changeSummary}</span>
+                <span className="ml-auto text-xs text-coffee/40">
+                  {u.publishedAt}
+                </span>
+              </>
+            );
+            if (!href) {
+              return (
+                <div
+                  key={u.id}
+                  className="flex flex-wrap items-center gap-2 px-4 py-3 text-sm"
+                >
+                  {inner}
+                </div>
+              );
+            }
+            return (
+              <Link
+                key={u.id}
+                href={href}
+                className="flex flex-wrap items-center gap-2 px-4 py-3 text-sm transition-colors hover:bg-cream/50"
+              >
+                {inner}
+              </Link>
+            );
+          })}
         </div>
       </section>
 

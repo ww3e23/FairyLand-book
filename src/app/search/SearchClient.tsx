@@ -14,11 +14,7 @@ const FILTERS: { value: EntityType | "all"; label: string }[] = [
   { value: "all", label: "全部" },
   { value: "class", label: "職業" },
   { value: "skill", label: "技能" },
-  { value: "pet", label: "幻獸" },
   { value: "item", label: "裝備" },
-  { value: "job", label: "工作" },
-  { value: "map", label: "地圖" },
-  { value: "quest", label: "任務" },
   { value: "guide", label: "攻略" },
 ];
 
@@ -36,7 +32,7 @@ export default function SearchClient() {
     <AppShell showContext={false}>
       <PageHeader
         title="搜尋"
-        subtitle="搜尋職業、技能、幻獸、裝備、地圖、任務……"
+        subtitle="搜尋職業、技能、道具、攻略……"
       >
         <SearchBar defaultValue={q} autoFocus size="large" />
       </PageHeader>

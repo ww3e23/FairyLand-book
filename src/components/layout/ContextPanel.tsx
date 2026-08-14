@@ -28,7 +28,7 @@ export function ContextPanel() {
           <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-forest/10 px-2 py-0.5 text-[10px] font-medium text-forest">
             🟢 最新
           </span>
-          <p className="mt-2 text-[11px] text-coffee/50">最後更新：2026-08-11</p>
+          <p className="mt-2 text-[11px] text-coffee/50">最後更新：2026-08-14</p>
         </div>
 
         <div className="glass-card rounded-xl p-4">
