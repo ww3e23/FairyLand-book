@@ -116,9 +116,9 @@ export const HOT_SEARCHES = [
   "狂戰士",
   "獸王劈",
   "調整藥丸",
+  "薯條",
+  "調水",
   "力量寵",
-  "迷裝",
-  "挖礦",
 ];
 
 export const CATEGORY_STATS = [
@@ -132,6 +132,7 @@ export const CATEGORY_STATS = [
 
 export const QUICK_LINKS = [
   { label: "新手入門", href: "/guides/2026回鍋玩家完整指南" },
+  { label: "洗點道具", href: "/guides/調整屬性與洗點道具" },
   { label: "練功地點", href: "/maps" },
   { label: "幻獸推薦", href: "/pets" },
   { label: "賺取可因", href: "/guides" },

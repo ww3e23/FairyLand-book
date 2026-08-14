@@ -45,6 +45,9 @@ export function ItemDetail({ item }: { item: ItemEntity }) {
         <DataField label="效果" field={item.effect} />
         <DataField label="使用限制" field={item.usageLimit} />
         <DataField label="數值變化" field={item.changeValue} />
+        {item.obtainMethod && (
+          <DataField label="取得方式" field={item.obtainMethod} />
+        )}
       </div>
 
       {relatedItems.length > 0 && (

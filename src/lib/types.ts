@@ -91,6 +91,7 @@ export interface ItemEntity extends BaseEntity {
   effect: DataField;
   usageLimit: DataField;
   changeValue: DataField;
+  obtainMethod?: DataField;
   relatedItemIds?: string[];
 }
 

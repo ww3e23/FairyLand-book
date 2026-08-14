@@ -31,4 +31,19 @@ export const SOURCES = {
     url: "https://github.com/ww3e23/FairyLand-book",
     reliability: 4 as const,
   },
+  officialScrolls: {
+    title: "童話官方遊戲指南：參考捲軸（調整系／搗蛋系丸子）",
+    url: "http://fairyland.lager.com.tw/01guidebook/31_things.html",
+    reliability: 2 as const,
+  },
+  bahamutSpecialItems: {
+    title: "巴哈姆特攻略百科：特殊道具（調整道具）",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E7%89%B9%E6%AE%8A%E9%81%93%E5%85%B7",
+    reliability: 3 as const,
+  },
+  bahamutRebirthPts: {
+    title: "巴哈姆特哈啦板：轉生後點數與屬調／調水用法",
+    url: "https://forum.gamer.com.tw/C.php?bsn=4211&snA=9805",
+    reliability: 3 as const,
+  },
 } satisfies Record<string, SourceRef>;
