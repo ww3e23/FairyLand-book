@@ -26,4 +26,9 @@ export const SOURCES = {
     url: "http://fairyland.lager.com.tw/01guidebook/12_job.html",
     reliability: 2 as const,
   },
+  playerItemTable: {
+    title: "玩家提供之遊戲資料表（調整藥丸效果與最低限制）",
+    url: "https://github.com/ww3e23/FairyLand-book",
+    reliability: 4 as const,
+  },
 } satisfies Record<string, SourceRef>;

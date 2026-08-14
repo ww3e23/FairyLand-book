@@ -109,6 +109,14 @@ export const guides: GuideEntity[] = [
 
 export const updates: UpdateEntry[] = [
   {
+    id: "update-4",
+    entityType: "item",
+    entityId: "item-single-stat-pill",
+    entityName: "單屬調整藥丸",
+    changeSummary: "新增三種調整藥丸效果與最低限制說明",
+    publishedAt: "2026-08-14",
+  },
+  {
     id: "update-1",
     entityType: "skill",
     entityId: "skill-beast-king-slash",

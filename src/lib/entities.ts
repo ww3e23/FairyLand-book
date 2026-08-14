@@ -2,6 +2,7 @@ import type { EntityType } from "@/lib/types";
 import { getClassById } from "@/data/classes";
 import { getSkillById } from "@/data/skills";
 import { getGuideById } from "@/data/guides";
+import { getItemById } from "@/data/items";
 
 export function getEntityHref(type: EntityType, id: string): string | null {
   switch (type) {
@@ -16,6 +17,10 @@ export function getEntityHref(type: EntityType, id: string): string | null {
     case "guide": {
       const e = getGuideById(id);
       return e ? `/guides/${e.slug}` : null;
+    }
+    case "item": {
+      const e = getItemById(id);
+      return e ? `/items/${e.slug}` : null;
     }
     default:
       return null;

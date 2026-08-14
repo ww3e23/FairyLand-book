@@ -85,6 +85,15 @@ export interface SkillEntity extends BaseEntity {
   relatedGuideIds?: string[];
 }
 
+export interface ItemEntity extends BaseEntity {
+  itemType: string;
+  category?: string;
+  effect: DataField;
+  usageLimit: DataField;
+  changeValue: DataField;
+  relatedItemIds?: string[];
+}
+
 export interface GuideEntity extends BaseEntity {
   guideType: "newbie" | "returning" | "class" | "dungeon" | "system";
   summary: string;

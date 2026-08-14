@@ -1,6 +1,7 @@
 import { classes } from "./classes";
 import { skills } from "./skills";
 import { guides } from "./guides";
+import { items } from "./items";
 import type { EntityType, SearchResult } from "@/lib/types";
 
 const TYPE_LABELS: Record<EntityType, string> = {
@@ -68,6 +69,19 @@ export function buildSearchIndex(): SearchResult[] {
     });
   }
 
+  for (const item of items) {
+    results.push({
+      id: item.id,
+      type: "item",
+      name: item.name,
+      slug: item.slug,
+      description: item.effect.value ?? item.effect.note ?? item.itemType,
+      trustStatus: item.trustStatus,
+      updatedAt: item.indexedAt,
+      href: `/${TYPE_PATH.item}/${item.slug}`,
+    });
+  }
+
   return results;
 }
 
@@ -79,7 +93,7 @@ export function search(
   if (!q) return [];
 
   const index = buildSearchIndex();
-  const allEntities = [...classes, ...skills, ...guides];
+  const allEntities = [...classes, ...skills, ...guides, ...items];
 
   return index.filter((item) => {
     if (typeFilter && typeFilter !== "all" && item.type !== typeFilter)
@@ -101,10 +115,10 @@ export const HOT_SEARCHES = [
   "光之使者",
   "狂戰士",
   "獸王劈",
+  "調整藥丸",
   "力量寵",
   "迷裝",
   "挖礦",
-  "幸運",
 ];
 
 export const CATEGORY_STATS = [
