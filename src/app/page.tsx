@@ -43,7 +43,7 @@ export default function HomePage() {
       {featured && (
         <section className="mb-8">
           <Link
-            href={`/guides/${featured.slug}`}
+            href={`/guides/${featured.slug}/`}
             className="glass-card-strong group block overflow-hidden rounded-2xl transition-shadow hover:shadow-md"
           >
             <div className="grid md:grid-cols-2">

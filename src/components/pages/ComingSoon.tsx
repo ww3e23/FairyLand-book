@@ -4,10 +4,10 @@ import { PageHeader } from "@/components/layout/ContextPanel";
 import { AppIcon } from "@/components/ui/Icon";
 
 const READY_LINKS = [
-  { href: "/classes", label: "職業攻略", icon: "shield" },
-  { href: "/skills", label: "技能資料", icon: "book" },
-  { href: "/items", label: "裝備道具", icon: "armor" },
-  { href: "/guides", label: "攻略文章", icon: "potion" },
+  { href: "/classes/", label: "職業攻略", icon: "shield" },
+  { href: "/guides/class-overview/", label: "職業一覽", icon: "book" },
+  { href: "/items/", label: "裝備道具", icon: "armor" },
+  { href: "/guides/", label: "攻略文章", icon: "potion" },
 ];
 
 export function ComingSoonPage({

@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { getItemBySlug } from "@/data/items";
 import { ItemDetail } from "@/components/pages/ItemDetail";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const { items } = await import("@/data/items");
   return items.map((item) => ({ slug: item.slug }));

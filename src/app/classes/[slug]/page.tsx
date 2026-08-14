@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { getClassBySlug } from "@/data/classes";
 import { ClassDetail } from "@/components/pages/ClassDetail";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const { classes } = await import("@/data/classes");
   return classes.map((c) => ({ slug: c.slug }));

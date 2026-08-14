@@ -52,7 +52,7 @@ export default function ReportPage() {
             <input
               type="text"
               name="page"
-              placeholder="例如：/skills/獸王劈"
+              placeholder="例如：/skills/beast-king-slash/"
               className="w-full rounded-lg border border-coffee/15 bg-warm-white/80 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brass/40"
             />
           </div>

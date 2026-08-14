@@ -18,7 +18,7 @@ export default function SkillsPage() {
         {skills.map((s) => (
           <Link
             key={s.id}
-            href={`/skills/${s.slug}`}
+            href={`/skills/${s.slug}/`}
             className="glass-card block rounded-xl p-5 transition-shadow hover:shadow-md"
           >
             <div className="flex flex-wrap items-center gap-2">

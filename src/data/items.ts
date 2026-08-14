@@ -45,7 +45,7 @@ const HUB_RELATED = [
 function namedAdjustPill(key: StatKey, name: string): ItemEntity {
   return {
     id: `item-${key}-pill`,
-    slug: `${name}調整藥丸`,
+    slug: `${key}-pill`,
     name: `${name}調整藥丸`,
     aliases: [`${name}藥丸`, `單屬${name}`],
     trustStatus: "pending",
@@ -84,7 +84,7 @@ function namedAdjustPill(key: StatKey, name: string): ItemEntity {
 function namedVial(key: StatKey, name: string): ItemEntity {
   return {
     id: `item-${key}-vial`,
-    slug: `${name}調整藥劑`,
+    slug: `${key}-vial`,
     name: `${name}調整藥劑`,
     aliases: [`${name}藥劑`, "調劑"],
     trustStatus: "pending",
@@ -125,7 +125,7 @@ function namedVial(key: StatKey, name: string): ItemEntity {
 function namedPotion(key: StatKey, name: string): ItemEntity {
   return {
     id: `item-${key}-potion`,
-    slug: `${name}調整藥水`,
+    slug: `${key}-potion`,
     name: `${name}調整藥水`,
     aliases: [`${name}藥水`, "調水"],
     trustStatus: "pending",
@@ -166,7 +166,7 @@ function namedPotion(key: StatKey, name: string): ItemEntity {
 function namedPrank(key: StatKey, name: string): ItemEntity {
   return {
     id: `item-${key}-prank`,
-    slug: `${name}搗蛋藥丸`,
+    slug: `${key}-prank`,
     name: `${name}搗蛋藥丸`,
     aliases: [`${name}搗蛋`],
     trustStatus: "pending",
@@ -210,7 +210,7 @@ function namedPrank(key: StatKey, name: string): ItemEntity {
 const hubs: ItemEntity[] = [
   {
     id: "item-single-stat-pill",
-    slug: "單屬調整藥丸",
+    slug: "single-stat-pill",
     name: "單屬調整藥丸",
     aliases: ["單屬藥丸", "單屬洗點", "洗點藥"],
     trustStatus: "pending",
@@ -249,7 +249,7 @@ const hubs: ItemEntity[] = [
   },
   {
     id: "item-all-stat-pill",
-    slug: "屬性調整藥丸",
+    slug: "all-stat-pill",
     name: "屬性調整藥丸",
     aliases: ["全屬調整藥丸", "六屬藥丸", "全屬洗點", "薯條", "屬調"],
     trustStatus: "pending",
@@ -290,7 +290,7 @@ const hubs: ItemEntity[] = [
   },
   {
     id: "item-random-stat-pill",
-    slug: "調整藥丸",
+    slug: "random-stat-pill",
     name: "調整藥丸",
     aliases: ["隨機調整藥丸", "隨機洗點", "隨機屬性藥丸"],
     trustStatus: "pending",
@@ -334,7 +334,7 @@ const hubs: ItemEntity[] = [
   },
   {
     id: "item-all-prank-pill",
-    slug: "屬性搗蛋藥丸",
+    slug: "all-prank-pill",
     name: "屬性搗蛋藥丸",
     aliases: ["全屬搗蛋", "屬搗"],
     trustStatus: "pending",
@@ -372,7 +372,7 @@ const hubs: ItemEntity[] = [
   },
   {
     id: "item-random-prank-pill",
-    slug: "搗蛋藥丸",
+    slug: "random-prank-pill",
     name: "搗蛋藥丸",
     aliases: ["隨機搗蛋"],
     trustStatus: "pending",
@@ -423,7 +423,10 @@ export const ITEM_CATEGORY_ORDER = [
 ];
 
 export function getItemBySlug(slug: string) {
-  return items.find((i) => i.slug === slug);
+  const key = decodeURIComponent(slug);
+  return items.find(
+    (i) => i.slug === slug || i.slug === key || i.name === key || i.aliases?.includes(key),
+  );
 }
 
 export function getItemById(id: string) {

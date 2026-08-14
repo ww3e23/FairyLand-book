@@ -22,7 +22,7 @@ export default function ItemsPage() {
       <p className="mb-6 text-sm text-coffee/70">
         也可先看{" "}
         <Link
-          href="/guides/調整屬性與洗點道具"
+          href="/guides/stat-reset/"
           className="text-brown underline underline-offset-2"
         >
           調整屬性與洗點道具整理
@@ -40,7 +40,7 @@ export default function ItemsPage() {
               {group.items.map((item) => (
                 <Link
                   key={item.id}
-                  href={`/items/${item.slug}`}
+            href={`/items/${item.slug}/`}
                   className="glass-card block rounded-xl p-4 transition-shadow hover:shadow-md"
                 >
                   <div className="flex flex-wrap items-center gap-2">

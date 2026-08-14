@@ -59,7 +59,7 @@ export function ItemDetail({ item }: { item: ItemEntity }) {
                 related && (
                   <Link
                     key={related.id}
-                    href={`/items/${related.slug}`}
+                    href={`/items/${related.slug}/`}
                     className="glass-card block rounded-lg px-4 py-3 text-sm text-coffee hover:shadow-sm"
                   >
                     {related.name}

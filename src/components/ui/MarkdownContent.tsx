@@ -135,7 +135,9 @@ function parseInline(text: string): React.ReactNode {
     }
 
     if (match[2] && match[3]) {
-      const href = match[3];
+      const href = match[3].startsWith("/") && !match[3].endsWith("/")
+        ? `${match[3]}/`
+        : match[3];
       const isInternal = href.startsWith("/");
       if (isInternal) {
         parts.push(

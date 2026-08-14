@@ -41,7 +41,7 @@ export function SkillDetail({ skill }: { skill: SkillEntity }) {
         <p className="mb-2 text-sm text-coffee/70">
           所屬職業：
           <Link
-            href={`/classes/${cls.slug}`}
+            href={`/classes/${cls.slug}/`}
             className="ml-1 font-medium text-brown underline underline-offset-2"
           >
             {cls.name}
@@ -73,7 +73,7 @@ export function SkillDetail({ skill }: { skill: SkillEntity }) {
                 g && (
                   <Link
                     key={g.id}
-                    href={`/guides/${g.slug}`}
+                    href={`/guides/${g.slug}/`}
                     className="glass-card block rounded-lg px-4 py-3 text-sm text-coffee hover:shadow-sm"
                   >
                     {g.name}

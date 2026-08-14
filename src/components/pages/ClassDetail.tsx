@@ -5,6 +5,7 @@ import { TrustBadge } from "@/components/ui/TrustBadge";
 import { DataField, SourceList } from "@/components/ui/DataField";
 import { getSkillById } from "@/data/skills";
 import { getGuideById } from "@/data/guides";
+import { getClassById } from "@/data/classes";
 import { VERSION_LABEL } from "@/data/version";
 import type { ClassEntity } from "@/lib/types";
 
@@ -15,6 +16,7 @@ export const BRANCH_LABEL = {
 };
 
 export function ClassDetail({ cls }: { cls: ClassEntity }) {
+  const parent = cls.parentClassId ? getClassById(cls.parentClassId) : null;
   const relatedSkills = (cls.relatedSkillIds ?? [])
     .map(getSkillById)
     .filter(Boolean);
@@ -41,6 +43,18 @@ export function ClassDetail({ cls }: { cls: ClassEntity }) {
         <p className="mb-2 text-xs text-coffee/50">別名：{cls.aliases.join("、")}</p>
       )}
 
+      {parent && (
+        <p className="mb-2 text-sm text-coffee/70">
+          前一階段：
+          <Link
+            href={`/classes/${parent.slug}/`}
+            className="ml-1 font-medium text-brown underline underline-offset-2"
+          >
+            {parent.name}
+          </Link>
+        </p>
+      )}
+
       <p className="mb-6 text-xs text-coffee/50">適用版本：{VERSION_LABEL}</p>
 
       <div className="glass-card-strong rounded-xl p-5 md:p-6">
@@ -63,7 +77,7 @@ export function ClassDetail({ cls }: { cls: ClassEntity }) {
                 s && (
                   <Link
                     key={s.id}
-                    href={`/skills/${s.slug}`}
+                    href={`/skills/${s.slug}/`}
                     className="glass-card rounded-lg px-3 py-2 text-sm text-coffee hover:shadow-sm"
                   >
                     {s.name}
@@ -83,7 +97,7 @@ export function ClassDetail({ cls }: { cls: ClassEntity }) {
                 g && (
                   <Link
                     key={g.id}
-                    href={`/guides/${g.slug}`}
+                    href={`/guides/${g.slug}/`}
                     className="glass-card block rounded-lg px-4 py-3 text-sm text-coffee hover:shadow-sm"
                   >
                     {g.name}

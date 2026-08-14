@@ -38,7 +38,7 @@ export function buildSearchIndex(): SearchResult[] {
       description: c.description.value ?? c.description.note ?? "",
       trustStatus: c.trustStatus,
       updatedAt: c.indexedAt,
-      href: `/${TYPE_PATH.class}/${c.slug}`,
+      href: `/${TYPE_PATH.class}/${c.slug}/`,
     });
   }
 
@@ -52,7 +52,7 @@ export function buildSearchIndex(): SearchResult[] {
         s.effect.value ?? s.effect.note ?? `${s.className ?? ""}技能`.trim(),
       trustStatus: s.trustStatus,
       updatedAt: s.lastVerifiedAt ?? s.indexedAt,
-      href: `/${TYPE_PATH.skill}/${s.slug}`,
+      href: `/${TYPE_PATH.skill}/${s.slug}/`,
     });
   }
 
@@ -65,7 +65,7 @@ export function buildSearchIndex(): SearchResult[] {
       description: g.summary,
       trustStatus: g.trustStatus,
       updatedAt: g.indexedAt,
-      href: `/${TYPE_PATH.guide}/${g.slug}`,
+      href: `/${TYPE_PATH.guide}/${g.slug}/`,
     });
   }
 
@@ -78,7 +78,7 @@ export function buildSearchIndex(): SearchResult[] {
       description: item.effect.value ?? item.effect.note ?? item.itemType,
       trustStatus: item.trustStatus,
       updatedAt: item.indexedAt,
-      href: `/${TYPE_PATH.item}/${item.slug}`,
+      href: `/${TYPE_PATH.item}/${item.slug}/`,
     });
   }
 
@@ -167,12 +167,12 @@ export const CATEGORY_STATS = [
 ];
 
 export const QUICK_LINKS = [
-  { label: "新手入門", href: "/guides/2026回鍋玩家完整指南" },
-  { label: "洗點道具", href: "/guides/調整屬性與洗點道具" },
-  { label: "職業一覽", href: "/classes" },
-  { label: "裝備道具", href: "/items" },
-  { label: "情報回報", href: "/report" },
-  { label: "關於我們", href: "/about" },
+  { label: "新手入門", href: "/guides/newbie/" },
+  { label: "職業一覽", href: "/guides/class-overview/" },
+  { label: "洗點道具", href: "/guides/stat-reset/" },
+  { label: "轉生入門", href: "/guides/rebirth/" },
+  { label: "基礎工作", href: "/guides/work-basics/" },
+  { label: "回鍋指南", href: "/guides/returning-2026/" },
 ];
 
 export const NAV_ITEMS = [
@@ -183,8 +183,8 @@ export const NAV_ITEMS = [
   { label: "新手回鍋", href: "/guides", icon: "potion", ready: true },
   { label: "版本更新", href: "/updates", icon: "refresh", ready: true },
   { label: "情報回報", href: "/report", icon: "flag", ready: true },
+  { label: "工作技能", href: "/jobs", icon: "hammer", ready: true },
   { label: "幻獸", href: "/pets", icon: "pet", ready: false },
-  { label: "工作技能", href: "/jobs", icon: "hammer", ready: false },
   { label: "地圖怪物", href: "/maps", icon: "map", ready: false },
   { label: "任務攻略", href: "/quests", icon: "scroll", ready: false },
   { label: "遊戲工具", href: "/tools", icon: "wrench", ready: false },

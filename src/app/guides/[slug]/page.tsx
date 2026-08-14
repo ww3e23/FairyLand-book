@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { getGuideBySlug } from "@/data/guides";
 import { GuideDetail } from "@/components/pages/GuideDetail";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const { guides } = await import("@/data/guides");
   return guides.map((g) => ({ slug: g.slug }));

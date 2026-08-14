@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { getSkillBySlug } from "@/data/skills";
 import { SkillDetail } from "@/components/pages/SkillDetail";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const { skills } = await import("@/data/skills");
   return skills.map((s) => ({ slug: s.slug }));

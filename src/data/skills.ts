@@ -4,7 +4,7 @@ import { SOURCES } from "./sources";
 export const skills: SkillEntity[] = [
   {
     id: "skill-beast-king-slash",
-    slug: "獸王劈",
+    slug: "beast-king-slash",
     name: "獸王劈",
     aliases: ["獸劈", "獸王"],
     classId: "class-berserker",
@@ -75,7 +75,10 @@ export const skills: SkillEntity[] = [
 ];
 
 export function getSkillBySlug(slug: string) {
-  return skills.find((s) => s.slug === slug);
+  const key = decodeURIComponent(slug);
+  return skills.find(
+    (s) => s.slug === slug || s.slug === key || s.name === key || s.aliases?.includes(key),
+  );
 }
 
 export function getSkillById(id: string) {
