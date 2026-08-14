@@ -428,6 +428,7 @@ export const updates: UpdateEntry[] = [
     changeSummary: "補齊見習／一轉／二轉職業頁，並改用英文網址避免 404",
     publishedAt: "2026-08-14",
   },
+  {
     id: "update-5",
     entityType: "guide",
     entityId: "guide-stat-reset",
