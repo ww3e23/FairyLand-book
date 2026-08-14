@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/layout/ContextPanel";
 import { TrustBadge } from "@/components/ui/TrustBadge";
 import { classes } from "@/data/classes";
 import { BRANCH_LABEL } from "@/components/pages/ClassDetail";
-import { pageHref } from "@/lib/paths";
+import { pageHref, withBasePath } from "@/lib/paths";
 import type { ClassEntity } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -14,6 +14,20 @@ export const metadata: Metadata = {
 
 const BRANCHES: ClassEntity["branch"][] = ["warrior", "traveler", "cleric"];
 const TIER_LABEL = ["見習", "一轉", "二轉"] as const;
+const BRANCH_ART: Record<ClassEntity["branch"], { src: string; caption: string }> = {
+  warrior: {
+    src: "/art/guide-berserker-path.jpg",
+    caption: "戰士系：見習士兵 → 一轉 → 二轉狂戰士這條線",
+  },
+  traveler: {
+    src: "/art/guide-three-cities.jpg",
+    caption: "旅人系公會在彩虹城（中）",
+  },
+  cleric: {
+    src: "/art/guide-classes.jpg",
+    caption: "修士系：僧侶、法師、光／闇",
+  },
+};
 
 export default function ClassesPage() {
   return (
@@ -43,6 +57,14 @@ export default function ClassesPage() {
           <h2 className="mb-3 text-lg font-bold text-coffee">
             {BRANCH_LABEL[branch]}
           </h2>
+          <figure className="guide-figure mb-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={withBasePath(BRANCH_ART[branch].src)}
+              alt={BRANCH_ART[branch].caption}
+            />
+            <figcaption>{BRANCH_ART[branch].caption}</figcaption>
+          </figure>
           <div className="space-y-3">
             {classes
               .filter((c) => c.branch === branch)

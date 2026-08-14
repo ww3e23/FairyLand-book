@@ -26,7 +26,7 @@ export default function GuidesPage() {
             className="glass-card block overflow-hidden rounded-xl transition-shadow hover:shadow-md"
           >
             {g.coverImage && (
-              <div className="h-40 overflow-hidden sm:h-44">
+              <div className="h-48 overflow-hidden sm:h-52">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={withBasePath(g.coverImage)}

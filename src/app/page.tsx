@@ -62,7 +62,7 @@ export default function HomePage() {
                   立即查看 →
                 </span>
               </div>
-              <div className="relative min-h-[160px] md:min-h-[220px]">
+            <div className="relative order-first min-h-[200px] md:order-last md:min-h-[240px]">
                 {featured.coverImage ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img

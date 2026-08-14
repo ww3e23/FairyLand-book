@@ -100,6 +100,7 @@ export interface GuideEntity extends BaseEntity {
   summary: string;
   content: string;
   coverImage?: string;
+  figures?: { src: string; caption: string }[];
   isFeatured?: boolean;
   linkedEntityIds?: { type: EntityType; id: string; label: string }[];
 }

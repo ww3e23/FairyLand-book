@@ -7,12 +7,19 @@ import { getSkillById } from "@/data/skills";
 import { getGuideById } from "@/data/guides";
 import { getClassById } from "@/data/classes";
 import { VERSION_LABEL } from "@/data/version";
+import { withBasePath } from "@/lib/paths";
 import type { ClassEntity } from "@/lib/types";
 
 export const BRANCH_LABEL = {
   warrior: "戰士系",
   traveler: "旅人系",
   cleric: "修士系",
+};
+
+const BRANCH_COVER: Record<ClassEntity["branch"], string> = {
+  warrior: "/art/guide-berserker-path.jpg",
+  traveler: "/art/guide-three-cities.jpg",
+  cleric: "/art/guide-classes.jpg",
 };
 
 export function ClassDetail({ cls }: { cls: ClassEntity }) {
@@ -55,7 +62,22 @@ export function ClassDetail({ cls }: { cls: ClassEntity }) {
         </p>
       )}
 
-      <p className="mb-6 text-xs text-coffee/50">適用版本：{VERSION_LABEL}</p>
+      <p className="mb-4 text-xs text-coffee/50">適用版本：{VERSION_LABEL}</p>
+
+      <figure className="guide-figure mb-6">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={withBasePath(
+            cls.slug === "berserker"
+              ? "/art/guide-berserker-path.jpg"
+              : BRANCH_COVER[cls.branch],
+          )}
+          alt={`${cls.name}（${BRANCH_LABEL[cls.branch]}）`}
+        />
+        <figcaption>
+          {cls.name} · {BRANCH_LABEL[cls.branch]} · {cls.tier === 0 ? "見習" : cls.tier === 1 ? "一轉" : "二轉"}
+        </figcaption>
+      </figure>
 
       <div className="glass-card-strong rounded-xl p-5 md:p-6">
         <DataField label="職業介紹" field={cls.description} />
