@@ -62,11 +62,7 @@ export default function HomePage() {
                 </span>
               </div>
               <div className="relative flex min-h-[140px] items-center justify-center bg-gradient-to-br from-coffee/25 via-brass/15 to-forest/20 md:min-h-[200px]">
-                <div className="flex items-center gap-4 text-warm-white/80">
-                  <AppIcon name="book" className="h-12 w-12 opacity-80" />
-                  <AppIcon name="potion" className="h-16 w-16" />
-                  <AppIcon name="shield" className="h-12 w-12 opacity-80" />
-                </div>
+                <AppIcon name="potion" className="h-28 w-28 rounded-2xl shadow-md" />
               </div>
             </div>
           </Link>
@@ -82,8 +78,8 @@ export default function HomePage() {
               href={cat.href}
               className="glass-card group rounded-xl p-4 transition-all hover:shadow-md"
             >
-              <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-coffee/8 text-coffee transition-colors group-hover:bg-coffee/15">
-                <AppIcon name={cat.icon} className="h-5 w-5" />
+              <div className="mb-3 h-14 w-14 overflow-hidden rounded-xl shadow-sm ring-1 ring-coffee/10">
+                <AppIcon name={cat.icon} className="h-14 w-14" />
               </div>
               <p className="text-sm font-semibold text-coffee">{cat.label}</p>
               <p className="text-xs text-coffee/50">{cat.count}</p>
@@ -99,8 +95,8 @@ export default function HomePage() {
                   key={cat.label}
                   className="glass-card rounded-xl p-4 opacity-60"
                 >
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-coffee/8 text-coffee/50">
-                    <AppIcon name={cat.icon} className="h-5 w-5" />
+                  <div className="mb-3 h-14 w-14 overflow-hidden rounded-xl ring-1 ring-coffee/10">
+                    <AppIcon name={cat.icon} className="h-14 w-14" />
                   </div>
                   <p className="text-sm font-semibold text-coffee">{cat.label}</p>
                   <p className="text-xs text-coffee/50">資料尚未收錄</p>

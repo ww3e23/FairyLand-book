@@ -35,7 +35,7 @@ export function Sidebar() {
                         : "text-coffee/70 hover:bg-cream/60 hover:text-coffee"
                     }`}
                   >
-                    <AppIcon name={item.icon} className="h-4 w-4 shrink-0 opacity-80" />
+                    <AppIcon name={item.icon} className="h-7 w-7 shrink-0 rounded-md" />
                     {item.label}
                   </Link>
                 </li>
@@ -55,7 +55,7 @@ export function Sidebar() {
                       href={item.href}
                       className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-coffee/40 hover:bg-cream/40 hover:text-coffee/60"
                     >
-                      <AppIcon name={item.icon} className="h-4 w-4 shrink-0" />
+                      <AppIcon name={item.icon} className="h-7 w-7 shrink-0 rounded-md" />
                       <span>{item.label}</span>
                     </Link>
                   </li>
@@ -130,7 +130,7 @@ export function MobileNav() {
                   className="flex h-14 w-14 items-center justify-center rounded-full bg-coffee text-warm-white shadow-lg ring-4 ring-parchment"
                   aria-label="搜尋"
                 >
-                  <AppIcon name="search" className="h-6 w-6" />
+                  <AppIcon name="search" className="h-9 w-9 rounded-full" />
                 </Link>
               </li>
             );
@@ -143,7 +143,7 @@ export function MobileNav() {
                   active ? "text-coffee font-medium" : "text-coffee/50"
                 }`}
               >
-                <AppIcon name={item.icon} className="h-5 w-5" />
+                <AppIcon name={item.icon} className="h-7 w-7" />
                 {item.label}
               </Link>
             </li>

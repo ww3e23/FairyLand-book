@@ -35,7 +35,7 @@ export function SearchBar({
           isLarge ? "px-5 py-4" : "px-4 py-2.5"
         }`}
       >
-        <AppIcon name="search" className="h-5 w-5 shrink-0 text-coffee/50" />
+        <AppIcon name="search" className="h-6 w-6 shrink-0 rounded" />
         <input
           type="search"
           name="q"

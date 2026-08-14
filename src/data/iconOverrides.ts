@@ -1,9 +1,16 @@
-/**
- * 自訂圖示覆寫表。
- * 把 PNG / SVG 放到 public/icons/ 後，在這裡填路徑即可取代內建線稿。
- *
- * 例：shield: "/icons/shield.png"
- *
- * 也可在 /admin/icons 查看每個圖示鍵名。
- */
-export const ICON_OVERRIDES: Record<string, string> = {};
+export const ICON_OVERRIDES: Record<string, string> = {
+  home: "/icons/home.png",
+  shield: "/icons/shield.png",
+  book: "/icons/book.png",
+  pet: "/icons/pet.png",
+  armor: "/icons/armor.png",
+  hammer: "/icons/hammer.png",
+  map: "/icons/map.png",
+  scroll: "/icons/scroll.png",
+  potion: "/icons/potion.png",
+  wrench: "/icons/wrench.png",
+  refresh: "/icons/refresh.png",
+  flag: "/icons/flag.png",
+  search: "/icons/search.png",
+  star: "/icons/star.png",
+};

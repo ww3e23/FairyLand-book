@@ -147,7 +147,11 @@ export function AppIcon({
   if (custom) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img src={withBasePath(custom)} alt="" className={`object-contain ${className}`} />
+      <img
+        src={withBasePath(custom)}
+        alt=""
+        className={`rounded-md object-contain ${className}`}
+      />
     );
   }
 
