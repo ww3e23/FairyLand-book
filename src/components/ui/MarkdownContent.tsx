@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { withBasePath } from "@/lib/paths";
 
 /** 簡易 Markdown 渲染（V1：支援標題、連結、列表、表格、分隔線） */
 export function MarkdownContent({ content }: { content: string }) {
@@ -28,6 +29,15 @@ export function MarkdownContent({ content }: { content: string }) {
 
     if (line.startsWith("---")) {
       elements.push(<hr key={key++} />);
+      i++;
+      continue;
+    }
+
+    const imageMatch = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imageMatch) {
+      elements.push(
+        renderFigure(imageMatch[1], imageMatch[2], key++),
+      );
       i++;
       continue;
     }
@@ -84,6 +94,17 @@ export function MarkdownContent({ content }: { content: string }) {
   }
 
   return <div className="prose-fairy">{elements}</div>;
+}
+
+function renderFigure(alt: string, src: string, key: number) {
+  const url = src.startsWith("http") ? src : withBasePath(src);
+  return (
+    <figure key={key} className="guide-figure">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={url} alt={alt} />
+      {alt ? <figcaption>{alt}</figcaption> : null}
+    </figure>
+  );
 }
 
 function renderTable(lines: string[], key: number) {

@@ -12,6 +12,7 @@ export const guides: GuideEntity[] = [
     applicableVersion: "kingdom_revival",
     indexedAt: "2026-08-11",
     isFeatured: true,
+    coverImage: "/guides/guide-returning.jpg",
     sources: [SOURCES.official, SOURCES.bahamutForum],
     metaTitle: "2026 回鍋玩家完整指南－童協會",
     metaDescription:
@@ -40,6 +41,8 @@ export const guides: GuideEntity[] = [
 ---
 
 ## 回鍋第一步
+
+![下載主程式 → 確認資料片 → 查職業與攻略](/guides/guide-returning-steps.jpg)
 
 1. **確認客戶端版本** — 前往 [官方官網](https://nfl.lager.com.tw/index/index) 下載最新主程式
 2. **了解目前資料片** — 近期為「竹取物語」，含竹月島、月光石裝備強化、幻獸元素神啟書等新系統
@@ -76,6 +79,7 @@ export const guides: GuideEntity[] = [
     trustStatus: "pending",
     applicableVersion: "kingdom_revival",
     indexedAt: "2026-08-11",
+    coverImage: "/guides/guide-berserker.jpg",
     sources: [SOURCES.bahamutForum, SOURCES.baojia],
     metaTitle: "狂戰士養成攻略（2026 版）－童協會",
     metaDescription: "童話 Online 狂戰士養成方向、技能與相關資源整理。",
@@ -83,6 +87,8 @@ export const guides: GuideEntity[] = [
     content: `## 狂戰士養成概覽
 
 狂戰士為戰士系二轉職業，由斧戰士轉職。本攻略目前以**資料整理與連結**為主，而非提供未經驗證的數值。
+
+![見習士兵 → 斧戰士 → 狂戰士 轉職示意](/guides/guide-berserker-path.jpg)
 
 ### 相關技能
 
@@ -117,6 +123,7 @@ export const guides: GuideEntity[] = [
     trustStatus: "pending",
     applicableVersion: "kingdom_revival",
     indexedAt: "2026-08-14",
+    coverImage: "/guides/guide-potions.jpg",
     sources: [
       SOURCES.playerItemTable,
       SOURCES.officialScrolls,
@@ -136,6 +143,8 @@ export const guides: GuideEntity[] = [
 2. **搗蛋系**：把點數從某一屬**自動轉到**另一屬，**不能自選**加點位置。
 
 以下效果與限制整理自玩家提供之遊戲資料表、[舊官方參考捲軸](http://fairyland.lager.com.tw/01guidebook/31_things.html)、[巴哈百科特殊道具](https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E7%89%B9%E6%AE%8A%E9%81%93%E5%85%B7)。王國復甦是否完全相同，尚待遊戲內確認。
+
+![調整系可自己加點；搗蛋系會自動亂轉](/guides/guide-stat-types.jpg)
 
 ---
 
@@ -214,6 +223,7 @@ export const guides: GuideEntity[] = [
     trustStatus: "pending",
     applicableVersion: "kingdom_revival",
     indexedAt: "2026-08-14",
+    coverImage: "/guides/guide-newbie.jpg",
     sources: [SOURCES.oldOfficialGuide, SOURCES.bahamutWiki],
     metaTitle: "新手入門｜童協會",
     metaDescription: "童話 Online 新手從平民、見習職業到一轉公會的流程整理。",
@@ -235,6 +245,10 @@ export const guides: GuideEntity[] = [
 | [見習修士](/classes/apprentice-cleric/) | 僧侶、法師、光之信徒、闇之信徒 | 青鳥城修士公會 |
 
 完整樹狀圖見 [職業一覽](/guides/class-overview/)。
+
+![平民 → 見習 → 一轉 → 二轉 流程示意](/guides/guide-job-flow.jpg)
+
+![金銀城、彩虹城、青鳥城：三大職業公會所在](/guides/guide-three-cities.jpg)
 
 ---
 
@@ -268,6 +282,7 @@ export const guides: GuideEntity[] = [
     trustStatus: "pending",
     applicableVersion: "kingdom_revival",
     indexedAt: "2026-08-14",
+    coverImage: "/guides/guide-classes.jpg",
     sources: [SOURCES.bahamutWiki, SOURCES.oldOfficialGuide],
     metaTitle: "職業一覽｜童協會",
     metaDescription: "童話 Online 戰士、旅人、修士系見習／一轉／二轉職業對照。",
@@ -279,6 +294,10 @@ export const guides: GuideEntity[] = [
 - **二轉**：60 級，同系公會，可換二轉造型與進階技能
 
 來源：[巴哈職業分析](https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E8%81%B7%E6%A5%AD%E5%88%86%E6%9E%90)、[官方遊戲指南](http://fairyland.lager.com.tw/01guidebook/12_job.html)
+
+![平民 → 見習 → 一轉 → 二轉 流程示意](/guides/guide-job-flow.jpg)
+
+![金銀城戰士、彩虹城旅人、青鳥城修士](/guides/guide-three-cities.jpg)
 
 ---
 
@@ -328,6 +347,7 @@ export const guides: GuideEntity[] = [
     trustStatus: "pending",
     applicableVersion: "kingdom_revival",
     indexedAt: "2026-08-14",
+    coverImage: "/guides/guide-rebirth.jpg",
     sources: [SOURCES.bahamutWiki, SOURCES.bahamutForum, SOURCES.bahamutRebirthPts],
     metaTitle: "轉生入門｜童協會",
     metaDescription: "童話 Online 轉生地點、門檻、保留與消失項目、轉生後洗點。",
@@ -361,6 +381,8 @@ export const guides: GuideEntity[] = [
 
 ## 會變／會沒／會留
 
+![轉生後：留下的、消失的、會改變的](/guides/guide-rebirth-keep.jpg)
+
 **會變**：等級變 1、職業回到一轉（不是平民）、外型、生命法力、使用中的幻獸狀態。
 
 **會消失**：大部分二轉技能；二轉任務取得的法術。大老闆金錢攻擊、裝扮類技能例外會留。
@@ -388,6 +410,7 @@ export const guides: GuideEntity[] = [
     trustStatus: "pending",
     applicableVersion: "kingdom_revival",
     indexedAt: "2026-08-14",
+    coverImage: "/guides/guide-work.jpg",
     sources: [SOURCES.bahamutWiki, SOURCES.oldOfficialGuide],
     metaTitle: "基礎工作｜童協會",
     metaDescription: "童話 Online 六大基礎工作學習地點與限制整理。",
@@ -395,6 +418,8 @@ export const guides: GuideEntity[] = [
     content: `## 六大基礎工作
 
 只要有工具就能做，最適合新手。學會後升到 2 級回去找老師回報，舊資料有 100 可因獎勵。
+
+![採集、農事、狩獵、釣魚、伐木、挖礦](/guides/guide-work-six.jpg)
 
 [官方工作指南](http://fairyland.lager.com.tw/01guidebook/08_work.html)、[巴哈基礎工作](https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E5%9F%BA%E7%A4%8E%E5%B7%A5%E4%BD%9C)
 
@@ -420,6 +445,14 @@ export const guides: GuideEntity[] = [
 ];
 
 export const updates: UpdateEntry[] = [
+  {
+    id: "update-7",
+    entityType: "guide",
+    entityId: "guide-newbie",
+    entityName: "攻略插圖",
+    changeSummary: "各篇攻略補上封面與流程／對照示意圖，方便對照文字",
+    publishedAt: "2026-08-14",
+  },
   {
     id: "update-6",
     entityType: "guide",

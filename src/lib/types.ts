@@ -99,6 +99,7 @@ export interface GuideEntity extends BaseEntity {
   guideType: "newbie" | "returning" | "class" | "dungeon" | "system";
   summary: string;
   content: string;
+  coverImage?: string;
   isFeatured?: boolean;
   linkedEntityIds?: { type: EntityType; id: string; label: string }[];
 }

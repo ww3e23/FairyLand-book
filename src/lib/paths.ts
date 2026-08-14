@@ -7,6 +7,12 @@ export function pageHref(...segments: string[]): string {
   return `/${cleaned.join("/")}/`;
 }
 
+export function withBasePath(path: string) {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  if (!path.startsWith("/")) return path;
+  return `${base}${path}`;
+}
+
 export function decodeURIComponentSafe(value: string): string {
   try {
     return decodeURIComponent(value);

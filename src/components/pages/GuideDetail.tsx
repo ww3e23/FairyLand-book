@@ -6,6 +6,7 @@ import { SourceList } from "@/components/ui/DataField";
 import { MarkdownContent } from "@/components/ui/MarkdownContent";
 import { EntityLink } from "@/components/ui/EntityLink";
 import { VERSION_LABEL } from "@/data/version";
+import { withBasePath } from "@/lib/paths";
 import type { GuideEntity } from "@/lib/types";
 
 export function GuideDetail({ guide }: { guide: GuideEntity }) {
@@ -27,6 +28,20 @@ export function GuideDetail({ guide }: { guide: GuideEntity }) {
       </div>
 
       <p className="mb-6 text-xs text-coffee/50">適用版本：{VERSION_LABEL}</p>
+
+      {guide.coverImage && (
+        <figure className="guide-figure mb-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={withBasePath(guide.coverImage)}
+            alt={guide.name}
+          />
+          <figcaption>{guide.summary}</figcaption>
+        </figure>
+      )}
+      <p className="mb-6 text-center text-[11px] text-coffee/45">
+        插圖為說明用示意，非遊戲截圖
+      </p>
 
       <div className="glass-card-strong rounded-xl p-5 md:p-8">
         <MarkdownContent content={guide.content} />

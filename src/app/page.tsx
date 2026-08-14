@@ -10,6 +10,7 @@ import {
 import { updates, getFeaturedGuide } from "@/data/guides";
 import { VERSION_LABEL } from "@/data/version";
 import { getEntityHref } from "@/lib/entities";
+import { withBasePath } from "@/lib/paths";
 
 export default function HomePage() {
   const featured = getFeaturedGuide();
@@ -61,8 +62,19 @@ export default function HomePage() {
                   立即查看 →
                 </span>
               </div>
-              <div className="relative flex min-h-[140px] items-center justify-center bg-gradient-to-br from-coffee/25 via-brass/15 to-forest/20 md:min-h-[200px]">
-                <AppIcon name="potion" className="h-28 w-28 rounded-2xl shadow-md" />
+              <div className="relative min-h-[160px] md:min-h-[220px]">
+                {featured.coverImage ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={withBasePath(featured.coverImage)}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full min-h-[160px] items-center justify-center bg-gradient-to-br from-coffee/25 via-brass/15 to-forest/20 md:min-h-[220px]">
+                    <AppIcon name="potion" className="h-28 w-28 rounded-2xl shadow-md" />
+                  </div>
+                )}
               </div>
             </div>
           </Link>
