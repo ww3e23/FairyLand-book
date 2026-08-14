@@ -66,4 +66,9 @@ export const SOURCES = {
     url: "https://forum.gamer.com.tw/C.php?bsn=4211&snA=10626",
     reliability: 3 as const,
   },
+  officialSuperBlessing: {
+    title: "官方公告：童話超級祝福卡",
+    url: "https://nfl.lager.com.tw/index/index_news?id=777",
+    reliability: 5 as const,
+  },
 } satisfies Record<string, SourceRef>;
