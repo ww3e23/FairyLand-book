@@ -46,4 +46,24 @@ export const SOURCES = {
     url: "https://forum.gamer.com.tw/C.php?bsn=4211&snA=9805",
     reliability: 3 as const,
   },
+  officialKaguya: {
+    title: "官方公告：竹取物語資料片（地圖、月光石強化、幻獸神啟）",
+    url: "https://nfl.lager.com.tw/index/index_news?id=827",
+    reliability: 5 as const,
+  },
+  officialBlessing: {
+    title: "官方公告：童話祝福卡",
+    url: "https://nfl.lager.com.tw/index/index_news?id=3",
+    reliability: 5 as const,
+  },
+  officialBerserkerSkill: {
+    title: "官方技能調整：獸王劈／獸王九擊",
+    url: "https://nfl.lager.com.tw/index/index_news?id=82",
+    reliability: 5 as const,
+  },
+  bahamutBlessing: {
+    title: "巴哈哈啦板：想買祝福卡你要了解的事情",
+    url: "https://forum.gamer.com.tw/C.php?bsn=4211&snA=10626",
+    reliability: 3 as const,
+  },
 } satisfies Record<string, SourceRef>;
