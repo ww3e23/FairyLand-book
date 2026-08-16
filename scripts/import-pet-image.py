@@ -40,7 +40,14 @@ def main() -> int:
     url = urls[-1]
     ART.mkdir(parents=True, exist_ok=True)
     dest = ART / f"{slug}.jpg"
-    req = urllib.request.Request(url, headers={"User-Agent": "FairyLand-book-bot"})
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "FairyLand-book-bot",
+            "Authorization": f"Bearer {os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN') or ''}",
+            "Accept": "application/octet-stream",
+        },
+    )
     data = urllib.request.urlopen(req, timeout=60).read()
     try:
         from PIL import Image

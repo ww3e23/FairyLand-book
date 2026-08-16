@@ -78,6 +78,12 @@ export function Sidebar() {
               加入童協會家族 →
             </Link>
             <Link
+              href="/admin/pets"
+              className="mt-1 block text-[10px] text-coffee/40 hover:text-coffee/70"
+            >
+              幻獸圖片審核
+            </Link>
+            <Link
               href="/admin/icons"
               className="mt-1 block text-[10px] text-coffee/40 hover:text-coffee/70"
             >

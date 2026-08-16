@@ -28,7 +28,7 @@ export function buildPetImageIssue(input: {
     "## 圖片",
     input.imageUrl?.trim()
       ? input.imageUrl.trim()
-      : "請把檔案拖進這則 Issue（一定要有圖），再按 Submit / 提交新Issue。送出後會自動出現在圖鑑。",
+      : "請把檔案拖進這則 Issue（一定要有圖），再按 Submit。站長會在後台審核，通過才會出現在圖鑑。",
     "",
     "---",
     "規則：只要遊戲內截圖或自己畫的外觀圖。不要用其他攻略站／圖鑑站的圖。",

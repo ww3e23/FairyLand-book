@@ -2,9 +2,7 @@ name: Import pet image from issue
 
 on:
   issues:
-    types: [opened, edited]
-  issue_comment:
-    types: [created]
+    types: [labeled]
   workflow_dispatch:
     inputs:
       issue:
@@ -19,7 +17,7 @@ jobs:
   import:
     if: >
       github.event_name == 'workflow_dispatch' ||
-      startsWith(github.event.issue.title, '[幻獸圖]')
+      github.event.label.name == 'pet-approved'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -71,4 +69,4 @@ jobs:
             gh issue comment "$NUM" --body "還沒偵測到可用的圖片或幻獸編號。請把圖直接拖進這則 Issue（或留言），存檔後會再試一次。"
             exit 0
           fi
-          gh issue comment "$NUM" --body "已收到圖片，正在部署到圖鑑。幾分鐘後到 https://ww3e23.github.io/FairyLand-book/pets/ 重新整理即可看到。"
+          gh issue comment "$NUM" --body "已核准。圖片正在部署到圖鑑，幾分鐘後到 https://ww3e23.github.io/FairyLand-book/pets/ 重新整理即可看到。"
