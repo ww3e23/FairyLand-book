@@ -7,6 +7,10 @@
  *
  * 關掉後：圖鑑上的投稿按鈕與 /pets/submit 入口會消失（頁面改顯示暫停）。
  * 已經上站的玩家圖不會自動撤掉，要撤再另外說。
+ *
+ * 審核後台不放在公開網站。本機執行：
+ *   npm run admin
+ * 瀏覽器打開 http://localhost:3847/admin/pets/
  */
 export const PLAYER_PET_IMAGE_SUBMISSIONS = true;
 

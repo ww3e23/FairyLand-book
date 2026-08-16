@@ -30,6 +30,9 @@ jobs:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_SITE_URL: https://ww3e23.github.io/FairyLand-book
 
+      - name: Strip admin from public site
+        run: rm -rf out/admin
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
