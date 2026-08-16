@@ -130,6 +130,14 @@ export async function fetchPetIssues(): Promise<PetSubmission[]> {
   return [...ntfy, ...withComments];
 }
 
+function decodeHeader(value: string) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 function metaField(text: string, label: string) {
   const m = text.match(new RegExp(`${label}：([^|\\n]+)`));
   return m?.[1]?.trim() ?? "";
@@ -155,19 +163,21 @@ async function fetchNtfyPending(existing: PetSubmission[]): Promise<PetSubmissio
           attachment?: { url?: string };
         };
         if (msg.event !== "message" || !msg.id) continue;
-        const text = `${msg.title ?? ""}\n${msg.message ?? ""}`;
+        const title = decodeHeader(msg.title ?? "");
+        const body = decodeHeader(msg.message ?? "");
+        const text = `${title}\n${body}`;
         if (!text.includes("來源：童協會投稿頁")) continue;
-        if (titles.has(msg.title ?? "")) continue;
+        if (titles.has(title) || titles.has(msg.title ?? "")) continue;
         const url = msg.attachment?.url;
         if (!url) continue;
         const petName =
           metaField(text, "名稱") ||
-          (msg.title ?? "").replace(PET_ISSUE_PREFIX, "").trim() ||
+          title.replace(PET_ISSUE_PREFIX, "").trim() ||
           "未命名";
         const slug = metaField(text, "編號");
         out.push({
           number: 0,
-          title: msg.title ?? `${PET_ISSUE_PREFIX} ${petName}`,
+          title: title || `${PET_ISSUE_PREFIX} ${petName}`,
           petName,
           slug: slug && slug !== "（未填）" ? slug : undefined,
           credit: metaField(text, "暱稱") || "（未填）",

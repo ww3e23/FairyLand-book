@@ -7,6 +7,7 @@ import re
 import subprocess
 import sys
 import urllib.request
+from urllib.parse import unquote
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +22,13 @@ def get(url: str) -> bytes:
     req = urllib.request.Request(url, headers={"User-Agent": "FairyLand-book-bot"})
     with urllib.request.urlopen(req, timeout=60) as res:
         return res.read()
+
+
+def decode_header(value: str) -> str:
+    try:
+        return unquote(value or "")
+    except Exception:
+        return value or ""
 
 
 def field(text: str, label: str) -> str:
@@ -64,7 +72,9 @@ def download() -> int:
         dest = INBOX / f"{ntfy_id}.jpg"
         if not ntfy_id or f"ntfy:{ntfy_id}" in known or dest.exists():
             continue
-        text = f"{msg.get('title') or ''}\n{msg.get('message') or ''}"
+        title = decode_header(str(msg.get("title") or ""))
+        message = decode_header(str(msg.get("message") or ""))
+        text = f"{title}\n{message}"
         if MARKER not in text:
             continue
         att = msg.get("attachment") or {}
@@ -74,8 +84,8 @@ def download() -> int:
         dest.write_bytes(get(url))
         meta = {
             "id": ntfy_id,
-            "title": msg.get("title") or "",
-            "message": msg.get("message") or "",
+            "title": title,
+            "message": message,
         }
         (INBOX / f"{ntfy_id}.json").write_text(
             json.dumps(meta, ensure_ascii=False),

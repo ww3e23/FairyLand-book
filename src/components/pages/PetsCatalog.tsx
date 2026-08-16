@@ -37,7 +37,12 @@ export function PetsCatalog() {
       if (skill && !splitPetList(pet.learnableSkills.value).includes(skill))
         return false;
       if (!q) return true;
-      return petSearchText(pet).includes(q);
+      const nameHit =
+        pet.name.toLowerCase().includes(q) ||
+        (pet.aliases ?? []).some((alias) => alias.toLowerCase().includes(q));
+      if (nameHit) return true;
+      if (q.length < 2) return false;
+      return petSearchExtra(pet).includes(q);
     });
     if (!q) return matched;
     return [...matched].sort(
@@ -177,10 +182,8 @@ export function PetsCatalog() {
   );
 }
 
-function petSearchText(pet: PetEntity) {
+function petSearchExtra(pet: PetEntity) {
   return [
-    pet.name,
-    ...(pet.aliases ?? []),
     pet.spawnMaps.value,
     pet.learnableSkills.value,
     pet.drops.value,

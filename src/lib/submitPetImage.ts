@@ -103,9 +103,9 @@ export async function submitPetImage(input: {
   const res = await fetch(`https://ntfy.sh/${PET_SUBMIT_NTFY_TOPIC}`, {
     method: "POST",
     headers: {
-      Title: `[幻獸圖] ${input.petName}`.slice(0, 180),
+      Title: encodeURIComponent(`[幻獸圖] ${input.petName}`.slice(0, 80)),
       Filename: "pet.jpg",
-      Message: message,
+      Message: encodeURIComponent(message),
       Tags: "camera,xh28",
     },
     body: blob,
