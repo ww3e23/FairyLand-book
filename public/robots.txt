@@ -1,5 +1,7 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /b/
+Disallow: /board/
 Disallow: /FairyLand-book/admin/
 Disallow: /FairyLand-book/b/
+Disallow: /FairyLand-book/board/
