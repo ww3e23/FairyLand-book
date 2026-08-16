@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { TrustBadge } from "@/components/ui/TrustBadge";
+import { PetInfoBlock } from "@/components/pages/PetInfoBlock";
+import { PetPhotoSlot } from "@/components/pages/PetPhotoSlot";
 import {
   PET_ELEMENT_LABEL,
   PET_ELEMENT_ORDER,
@@ -55,29 +57,34 @@ export function PetsCatalog() {
           這個分類目前沒有資料。
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-5">
           {list.map((pet) => (
-            <Link
+            <article
               key={pet.id}
-              href={pageHref("pets", pet.slug)}
-              className="glass-card block rounded-xl p-3 transition-shadow hover:shadow-md"
+              className="glass-card rounded-xl p-4 md:p-5"
             >
-              <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-sm font-bold text-coffee">{pet.name}</h2>
-                <span className="rounded-full bg-cream px-2 py-0.5 text-[10px] text-coffee/70">
-                  {PET_ELEMENT_LABEL[pet.element]}
-                  {pet.rare ? " · 稀有" : ""} · {pet.bias.value ?? "偏向性未填"}
-                </span>
-                <TrustBadge status={pet.trustStatus} />
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <PetPhotoSlot
+                  petName={pet.name}
+                  petSlug={pet.slug}
+                  image={pet.image}
+                  imageKind={pet.imageKind}
+                  size="sm"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    <Link
+                      href={pageHref("pets", pet.slug)}
+                      className="text-lg font-bold text-coffee hover:underline"
+                    >
+                      {pet.name}
+                    </Link>
+                    <TrustBadge status={pet.trustStatus} />
+                  </div>
+                  <PetInfoBlock pet={pet} compact />
+                </div>
               </div>
-              <p className="mt-1 text-xs text-coffee/60">
-                {pet.spawnLevel.value ?? "等級未填"}
-                {" · "}
-                {pet.spawnMaps.value ?? "地點未填"}
-                {" · 技能欄 "}
-                {pet.skillSlots.value ?? "—"}
-              </p>
-            </Link>
+            </article>
           ))}
         </div>
       )}
