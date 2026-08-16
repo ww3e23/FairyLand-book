@@ -18,7 +18,7 @@ export default function PetImageSubmitPage() {
         title="提供幻獸圖片"
         subtitle={
           PLAYER_PET_IMAGE_SUBMISSIONS
-            ? "測試中：先收遊戲內截圖或你畫的外觀。審核後才上圖鑑。"
+            ? "測試中：先收遊戲內截圖或你畫的外觀。不用註冊，審核後才上圖鑑。"
             : "這項功能目前暫停。"
         }
       />

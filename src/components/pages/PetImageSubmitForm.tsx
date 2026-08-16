@@ -3,11 +3,8 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { pets } from "@/data/pets";
-import {
-  PET_SUBMIT_OTHER,
-  buildPetImageIssue,
-  petSubmitOptions,
-} from "@/lib/petImageSubmit";
+import { PET_SUBMIT_OTHER, petSubmitOptions } from "@/lib/petImageSubmit";
+import { submitPetImage } from "@/lib/submitPetImage";
 
 export function PetImageSubmitForm() {
   const searchParams = useSearchParams();
@@ -19,7 +16,10 @@ export function PetImageSubmitForm() {
   const [otherName, setOtherName] = useState("");
   const [credit, setCredit] = useState("");
   const [notes, setNotes] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
 
   function selectedName() {
     if (slug === PET_SUBMIT_OTHER) {
@@ -28,15 +28,38 @@ export function PetImageSubmitForm() {
     return options.find((o) => o.slug === slug)?.name ?? slug;
   }
 
-  function openIssue() {
-    const issue = buildPetImageIssue({
-      petName: selectedName(),
-      petSlug: slug === PET_SUBMIT_OTHER ? undefined : slug,
-      credit,
-      notes,
-      imageUrl,
-    });
-    window.open(issue.url, "_blank", "noopener,noreferrer");
+  async function onSubmit() {
+    if (!file) {
+      setError("請先選一張圖");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      await submitPetImage({
+        petName: selectedName(),
+        petSlug: slug === PET_SUBMIT_OTHER ? undefined : slug,
+        credit,
+        notes,
+        file,
+      });
+      setDone(true);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "投稿失敗，請稍後再試");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <div className="glass-card-strong rounded-xl p-6 text-center">
+        <p className="text-sm font-medium text-coffee">已收到，謝謝</p>
+        <p className="mt-2 text-sm text-coffee/65">
+          不用註冊。站長過目後才會出現在圖鑑，不會立刻上線。
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -44,7 +67,7 @@ export function PetImageSubmitForm() {
       className="glass-card-strong space-y-4 rounded-xl p-6"
       onSubmit={(e) => {
         e.preventDefault();
-        openIssue();
+        void onSubmit();
       }}
     >
       <div>
@@ -81,12 +104,25 @@ export function PetImageSubmitForm() {
 
       <div>
         <label className="mb-1 block text-sm font-medium text-coffee">
+          圖片
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          required
+          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          className="w-full rounded-lg border border-coffee/15 bg-warm-white/80 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-coffee/10 file:px-3 file:py-1 file:text-coffee"
+        />
+      </div>
+
+      <div>
+        <label className="mb-1 block text-sm font-medium text-coffee">
           投稿暱稱（選填，可標在圖鑑）
         </label>
         <input
           value={credit}
           onChange={(e) => setCredit(e.target.value)}
-          placeholder="例如：巴哈 ID"
+          placeholder="遊戲 ID 或暱稱"
           className="w-full rounded-lg border border-coffee/15 bg-warm-white/80 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brass/40"
         />
       </div>
@@ -99,36 +135,23 @@ export function PetImageSubmitForm() {
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           rows={3}
-          placeholder="例如：野生個體、哪個地圖拍的、或外觀哪裡跟現在圖不一樣"
+          placeholder="例如：野生個體、哪個地圖拍的"
           className="w-full rounded-lg border border-coffee/15 bg-warm-white/80 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brass/40"
         />
       </div>
 
-      <div>
-        <label className="mb-1 block text-sm font-medium text-coffee">
-          圖床連結（選填）
-        </label>
-        <input
-          type="url"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          placeholder="https:// 已上傳的圖"
-          className="w-full rounded-lg border border-coffee/15 bg-warm-white/80 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brass/40"
-        />
-        <p className="mt-1 text-[11px] text-coffee/50">
-          沒有連結也沒關係：下一頁可以把檔案直接拖進 GitHub Issue。
-        </p>
-      </div>
+      {error ? <p className="text-sm text-wine">{error}</p> : null}
 
       <button
         type="submit"
-        className="w-full rounded-xl bg-coffee py-3 text-sm font-medium text-warm-white transition-opacity hover:opacity-90"
+        disabled={busy}
+        className="w-full rounded-xl bg-coffee py-3 text-sm font-medium text-warm-white transition-opacity hover:opacity-90 disabled:opacity-50"
       >
-        前往投稿（GitHub，可拖圖片）
+        {busy ? "送出中…" : "送出投稿"}
       </button>
 
       <p className="text-center text-[11px] text-coffee/45">
-        需要免費 GitHub 帳號。圖片不會立刻上線，站長過目後才會換上圖鑑。
+        不用註冊任何帳號。圖片不會立刻上線，站長過目後才會換上圖鑑。
       </p>
     </form>
   );

@@ -162,7 +162,7 @@ export function PetReviewBoard() {
       <div className="mx-auto max-w-5xl">
         <PageHeader
           title="幻獸圖片審核"
-          subtitle="先看大圖，再按核准或退回。"
+          subtitle="玩家投稿不用 GitHub。先看大圖，再按核准或退回。"
         />
 
         <div className="mb-5 rounded-xl border border-coffee/10 bg-cream/40 p-4">
@@ -295,7 +295,7 @@ function ReviewCard({
         </div>
         <div className="flex flex-col p-5">
           <p className="text-[11px] tracking-wide text-coffee/40">
-            #{item.number} · {when}
+            {item.ingestPending ? "剛送到" : `#${item.number}`} · {when}
           </p>
           <h2 className="mt-1 text-2xl font-bold text-coffee">{item.petName}</h2>
           {pet && (
@@ -329,7 +329,11 @@ function ReviewCard({
             </div>
           )}
           <div className="mt-auto flex flex-wrap gap-2 pt-6">
-            {item.status === "pending" && (
+            {item.ingestPending ? (
+              <p className="text-sm text-coffee/60">
+                已收到圖。請過幾分鐘再重新整理，就可以核准上圖鑑。
+              </p>
+            ) : item.status === "pending" ? (
               <>
                 <button
                   type="button"
@@ -348,7 +352,7 @@ function ReviewCard({
                   退回
                 </button>
               </>
-            )}
+            ) : null}
             {item.status === "approved" && (
               <p className="text-sm text-forest">已核准，部署後會出現在圖鑑。</p>
             )}

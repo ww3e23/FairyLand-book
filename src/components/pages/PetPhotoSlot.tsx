@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { PLAYER_PET_IMAGE_SUBMISSIONS } from "@/data/features";
-import { buildPetImageIssue } from "@/lib/petImageSubmit";
+import { blobFromDataUrl, submitPetImage } from "@/lib/submitPetImage";
 import { withBasePath } from "@/lib/paths";
 
 function previewKey(slug: string) {
@@ -24,7 +24,10 @@ export function PetPhotoSlot({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [localPreview, setLocalPreview] = useState<string | null>(null);
-  const [pendingFile, setPendingFile] = useState(false);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [sendError, setSendError] = useState("");
   const enabled = PLAYER_PET_IMAGE_SUBMISSIONS;
   const live = image ? withBasePath(image) : null;
   const shown = live ?? localPreview;
@@ -52,7 +55,9 @@ export function PetPhotoSlot({
     if (!file || !file.type.startsWith("image/")) return;
     const url = URL.createObjectURL(file);
     setLocalPreview(url);
-    setPendingFile(true);
+    setPendingFile(file);
+    setSent(false);
+    setSendError("");
     const reader = new FileReader();
     reader.onload = () => {
       try {
@@ -66,13 +71,24 @@ export function PetPhotoSlot({
     reader.readAsDataURL(file);
   }
 
-  function sendToReview() {
-    const issue = buildPetImageIssue({
-      petName,
-      petSlug,
-      notes: "請把選好的圖拖進下面，再按 Submit / 提交新Issue。",
-    });
-    window.open(issue.url, "_blank", "noopener,noreferrer");
+  async function sendToReview() {
+    const file =
+      pendingFile ??
+      (localPreview?.startsWith("data:") ? blobFromDataUrl(localPreview) : null);
+    if (!file) {
+      setSendError("請先選一張圖");
+      return;
+    }
+    setSending(true);
+    setSendError("");
+    try {
+      await submitPetImage({ petName, petSlug, file });
+      setSent(true);
+    } catch (e) {
+      setSendError(e instanceof Error ? e.message : "投稿失敗，請稍後再試");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -108,21 +124,32 @@ export function PetPhotoSlot({
           e.target.value = "";
         }}
       />
-      {enabled && pendingFile && !live && (
+      {enabled && (pendingFile || localPreview) && !live && !sent && (
         <button
           type="button"
+          disabled={sending}
           onClick={(e) => {
             e.stopPropagation();
-            sendToReview();
+            void sendToReview();
           }}
-          className="mt-2 w-full rounded-lg bg-coffee px-2 py-1.5 text-[11px] font-medium text-warm-white"
+          className="mt-2 w-full rounded-lg bg-coffee px-2 py-1.5 text-[11px] font-medium text-warm-white disabled:opacity-50"
         >
-          確認投稿
+          {sending ? "送出中…" : "確認投稿"}
         </button>
       )}
-      {enabled && pendingFile && !live && (
+      {enabled && sent && !live && (
         <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-coffee/55">
-          現在只在你電腦上看得到。按確認投稿，在 GitHub 把圖拖進去並提交後，幾分鐘才會出現在網站上。
+          已送到站長那邊。審核後才會出現在網站上，不用註冊帳號。
+        </p>
+      )}
+      {enabled && sendError ? (
+        <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-wine">
+          {sendError}
+        </p>
+      ) : null}
+      {enabled && (pendingFile || localPreview) && !live && !sent && !sendError && (
+        <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-coffee/55">
+          現在只在你電腦上看得到。按確認投稿即可，不用 GitHub、不用註冊。
         </p>
       )}
       {live && imageKind === "player" && (

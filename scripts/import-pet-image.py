@@ -13,7 +13,7 @@ ART = ROOT / "public" / "art" / "pets"
 
 SLUG_RE = re.compile(r"（([a-z0-9-]+)）")
 IMG_RE = re.compile(
-    r"https://(?:github\.com/user-attachments/assets/[A-Za-z0-9-]+|user-images\.githubusercontent\.com/[^\s)]+)"
+    r"https://(?:github\.com/user-attachments/assets/[A-Za-z0-9-]+|user-images\.githubusercontent\.com/[^\s)]+|raw\.githubusercontent\.com/[^\s)]+)"
 )
 
 
