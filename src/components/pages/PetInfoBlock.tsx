@@ -1,12 +1,6 @@
 import { PET_ELEMENT_LABEL } from "@/data/pets";
+import { splitPetList } from "@/lib/petLists";
 import type { PetEntity } from "@/lib/types";
-
-function splitList(value?: string) {
-  return (value ?? "")
-    .split(/[、,，]/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
 
 export function PetInfoBlock({
   pet,
@@ -15,9 +9,9 @@ export function PetInfoBlock({
   pet: PetEntity;
   compact?: boolean;
 }) {
-  const skills = splitList(pet.learnableSkills.value);
-  const maps = splitList(pet.spawnMaps.value);
-  const drops = splitList(pet.drops.value);
+  const skills = splitPetList(pet.learnableSkills.value);
+  const maps = splitPetList(pet.spawnMaps.value);
+  const drops = splitPetList(pet.drops.value);
 
   return (
     <div className={compact ? "space-y-2" : "space-y-3"}>
