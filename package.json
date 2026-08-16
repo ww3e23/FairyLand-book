@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "admin": "next dev --port 3847",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
