@@ -108,7 +108,7 @@ export function PetsCatalog() {
       </div>
 
       <p className="mb-3 text-xs text-coffee/50">
-        {list.length} 筆 · 點名稱展開資料
+        {list.length} 筆 · 點卡片展開資料
       </p>
 
       {list.length === 0 ? (
@@ -122,29 +122,40 @@ export function PetsCatalog() {
             return (
               <article
                 key={pet.id}
-                className={`glass-card rounded-xl p-3 ${open ? "col-span-2 sm:col-span-3 md:col-span-4" : ""}`}
+                role="button"
+                tabIndex={0}
+                aria-expanded={open}
+                onClick={() => setOpenId(open ? null : pet.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setOpenId(open ? null : pet.id);
+                  }
+                }}
+                className={`glass-card cursor-pointer rounded-xl p-3 transition-shadow hover:shadow-md ${open ? "col-span-2 sm:col-span-3 md:col-span-4" : ""}`}
               >
                 <div className={`flex ${open ? "flex-col gap-4 sm:flex-row" : "flex-col items-center gap-2"}`}>
-                  <PetPhotoSlot
-                    petName={pet.name}
-                    petSlug={pet.slug}
-                    image={pet.image}
-                    imageKind={pet.imageKind}
-                    size="sm"
-                  />
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    onKeyDown={(e) => e.stopPropagation()}
+                  >
+                    <PetPhotoSlot
+                      petName={pet.name}
+                      petSlug={pet.slug}
+                      image={pet.image}
+                      imageKind={pet.imageKind}
+                      size="sm"
+                    />
+                  </div>
                   <div className="min-w-0 w-full flex-1">
-                    <button
-                      type="button"
-                      onClick={() => setOpenId(open ? null : pet.id)}
-                      className="w-full text-center text-sm font-bold text-coffee hover:underline sm:text-left"
-                    >
+                    <p className="text-center text-sm font-bold text-coffee sm:text-left">
                       {pet.name}
                       {pet.rare ? (
                         <span className="ml-1 text-[10px] font-normal text-coffee/50">
                           稀有
                         </span>
                       ) : null}
-                    </button>
+                    </p>
                     {open && (
                       <div className="mt-3">
                         <PetInfoBlock pet={pet} compact />
