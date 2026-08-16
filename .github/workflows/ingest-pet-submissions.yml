@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  issues: write
 
 jobs:
   ingest:
@@ -15,27 +14,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download submissions
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          PET_SUBMIT_NTFY_TOPIC: fairyland-xh28-pet-drop
-        run: python scripts/ingest-ntfy-pets.py download
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-      - name: Commit inbox images
+      - run: pip install pillow
+
+      - name: Publish submissions
+        env:
+          PET_SUBMIT_NTFY_TOPIC: fairyland-xh28-pet-drop
+        run: python scripts/ingest-ntfy-pets.py publish
+
+      - name: Commit live pet images
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/art/pets/_inbox
+          git add public/art/pets src/data/pets.ts
           if git diff --cached --quiet; then
-            echo "no inbox files"
+            echo "no changes"
             exit 0
           fi
-          git commit -m "暫存玩家投稿的幻獸圖，待審核"
+          git commit -m "自動上架玩家投稿的幻獸圖"
           git push
-
-      - name: Open review issues
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: python scripts/ingest-ntfy-pets.py issues

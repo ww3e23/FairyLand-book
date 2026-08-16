@@ -59,7 +59,7 @@ export function PetImageSubmitForm() {
       <div className="glass-card-strong rounded-xl p-6 text-center">
         <p className="text-sm font-medium text-coffee">已收到，謝謝</p>
         <p className="mt-2 text-sm text-coffee/65">
-          不用註冊。站長過目後才會出現在圖鑑，不會立刻上線。
+          不用註冊。禁止血腥、色情。約幾分鐘會出現在圖鑑。
         </p>
       </div>
     );
@@ -172,7 +172,7 @@ export function PetImageSubmitForm() {
       </button>
 
       <p className="text-center text-[11px] text-coffee/45">
-        選圖後會先裁切。不用註冊。審核後才會換上圖鑑。
+        選圖後會先裁切。禁止血腥、色情。約幾分鐘會出現在圖鑑。
       </p>
 
       {cropSrc && (

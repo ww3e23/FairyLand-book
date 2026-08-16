@@ -128,7 +128,7 @@ export function PetPhotoSlot({
       )}
       {enabled && sent && !live && (
         <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-coffee/55">
-          已送到站長那邊。審核後才會出現在網站上，不用註冊帳號。
+          已送到。約幾分鐘會出現在圖鑑，不用等審核。
         </p>
       )}
       {enabled && sendError ? (

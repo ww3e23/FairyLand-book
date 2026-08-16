@@ -18,7 +18,7 @@ export default function PetImageSubmitPage() {
         title="提供幻獸圖片"
         subtitle={
           PLAYER_PET_IMAGE_SUBMISSIONS
-            ? "測試中：先收遊戲內截圖或你畫的外觀。不用註冊，審核後才上圖鑑。"
+            ? "選圖、裁切後直接送出。約幾分鐘會出現在圖鑑。"
             : "這項功能目前暫停。"
         }
       />
@@ -27,9 +27,9 @@ export default function PetImageSubmitPage() {
         <>
           <ul className="mb-6 list-disc space-y-1 pl-5 text-sm text-coffee/70">
             <li>只要該隻幻獸長怎樣，遊戲內截圖最好認。</li>
-            <li>自己畫的也可以，但請畫得像，不要只交可愛無關圖。</li>
-            <li>不要用其他攻略站、圖鑑站的圖（含截他們的頁面）。</li>
-            <li>亂圖、無關圖、盜用圖不會上站；太多的話這入口會關掉。</li>
+            <li>禁止血腥、色情畫面。</li>
+            <li>不要用其他攻略站、圖鑑站的圖。</li>
+            <li>亂圖太多會關掉這入口。</li>
           </ul>
           <Suspense
             fallback={

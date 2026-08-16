@@ -1,21 +1,24 @@
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import os
 import re
-import subprocess
 import sys
 import urllib.request
-from urllib.parse import unquote
 from pathlib import Path
+from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
-INBOX = ROOT / "public" / "art" / "pets" / "_inbox"
+PETS_TS = ROOT / "src" / "data" / "pets.ts"
+ART = ROOT / "public" / "art" / "pets"
+INBOX = ART / "_inbox"
+PUBLISHED = INBOX / "published.json"
 TOPIC = os.environ.get("PET_SUBMIT_NTFY_TOPIC", "fairyland-xh28-pet-drop")
-REPO = os.environ.get("GITHUB_REPOSITORY", "ww3e23/FairyLand-book")
 MARKER = "來源：童協會投稿頁"
-MAX_NEW = 8
+MAX_NEW = 12
+SLUG_RE = re.compile(r"^[a-z0-9-]+$")
 
 
 def get(url: str) -> bytes:
@@ -36,31 +39,63 @@ def field(text: str, label: str) -> str:
     return (m.group(1).strip() if m else "") or "（未填）"
 
 
-def existing_issue_text() -> str:
-    raw = subprocess.check_output(
-        [
-            "gh",
-            "api",
-            f"repos/{REPO}/issues?state=all&per_page=100&sort=created&direction=desc",
-        ],
-        text=True,
+def load_published() -> set[str]:
+    if not PUBLISHED.exists():
+        return set()
+    try:
+        data = json.loads(PUBLISHED.read_text(encoding="utf-8"))
+        return set(data if isinstance(data, list) else [])
+    except json.JSONDecodeError:
+        return set()
+
+
+def save_published(ids: set[str]) -> None:
+    INBOX.mkdir(parents=True, exist_ok=True)
+    PUBLISHED.write_text(
+        json.dumps(sorted(ids), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    issues = json.loads(raw)
-    return "\n".join(
-        f"{i.get('title') or ''}\n{i.get('body') or ''}" for i in issues
-    )
 
 
-def download() -> int:
+def save_jpeg(data: bytes, dest: Path) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        from PIL import Image
+
+        im = Image.open(io.BytesIO(data)).convert("RGB")
+        w, h = im.size
+        if w > 900:
+            im = im.resize((900, int(h * 900 / w)))
+        im.save(dest, "JPEG", quality=84, optimize=True)
+    except Exception:
+        dest.write_bytes(data)
+
+
+def patch_pets_ts(slug: str) -> bool:
+    src = PETS_TS.read_text(encoding="utf-8")
+    needle = f'    slug: "{slug}",\n'
+    if needle not in src:
+        print("UNKNOWN_SLUG", slug)
+        return False
+    image_line = f'    image: "/art/pets/{slug}.jpg",'
+    kind_line = '    imageKind: "player",'
+    if image_line in src:
+        return True
+    src = src.replace(needle, f"{needle}{image_line}\n{kind_line}\n", 1)
+    PETS_TS.write_text(src, encoding="utf-8")
+    print("PATCHED", slug)
+    return True
+
+
+def publish() -> int:
     raw = get(f"https://ntfy.sh/{TOPIC}/json?poll=1&since=12h")
     lines = [ln for ln in raw.decode("utf-8", "replace").splitlines() if ln.strip()]
-    known = existing_issue_text()
+    done = load_published()
     INBOX.mkdir(parents=True, exist_ok=True)
-    saved = 0
+    made = 0
 
     for line in reversed(lines):
-        if saved >= MAX_NEW:
+        if made >= MAX_NEW:
             break
         try:
             msg = json.loads(line)
@@ -69,97 +104,41 @@ def download() -> int:
         if msg.get("event") != "message":
             continue
         ntfy_id = str(msg.get("id") or "")
-        dest = INBOX / f"{ntfy_id}.jpg"
-        if not ntfy_id or f"ntfy:{ntfy_id}" in known or dest.exists():
+        if not ntfy_id or ntfy_id in done:
             continue
         title = decode_header(str(msg.get("title") or ""))
         message = decode_header(str(msg.get("message") or ""))
         text = f"{title}\n{message}"
         if MARKER not in text:
             continue
+        slug = field(text, "編號")
+        if slug == "（未填）" or not SLUG_RE.match(slug):
+            print("SKIP_NO_SLUG", ntfy_id)
+            done.add(ntfy_id)
+            continue
         att = msg.get("attachment") or {}
         url = att.get("url")
         if not url:
             continue
-        dest.write_bytes(get(url))
-        meta = {
-            "id": ntfy_id,
-            "title": title,
-            "message": message,
-        }
-        (INBOX / f"{ntfy_id}.json").write_text(
-            json.dumps(meta, ensure_ascii=False),
-            encoding="utf-8",
-        )
-        saved += 1
-        print("SAVED", ntfy_id)
-    print("DOWNLOAD_DONE", saved)
-    return 0
-
-
-def create_issues() -> int:
-    known = existing_issue_text()
-    made = 0
-    for meta_path in sorted(INBOX.glob("*.json")):
-        if made >= MAX_NEW:
-            break
-        meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        ntfy_id = str(meta.get("id") or meta_path.stem)
-        if f"ntfy:{ntfy_id}" in known:
+        save_jpeg(get(url), ART / f"{slug}.jpg")
+        if not patch_pets_ts(slug):
             continue
-        jpg = INBOX / f"{ntfy_id}.jpg"
-        if not jpg.exists():
-            continue
-        text = f"{meta.get('title') or ''}\n{meta.get('message') or ''}"
-        pet_name = field(text, "名稱")
-        if pet_name == "（未填）":
-            pet_name = (
-                re.sub(r"^\[幻獸圖\]\s*", "", meta.get("title") or "").strip()
-                or "未命名"
-            )
-        slug = field(text, "編號")
-        slug_line = f"{pet_name}（{slug}）" if slug != "（未填）" else pet_name
-        image_md = (
-            f"https://raw.githubusercontent.com/{REPO}/main/public/art/pets/_inbox/{ntfy_id}.jpg"
-        )
-        body = "\n".join(
-            [
-                f"<!-- ntfy:{ntfy_id} -->",
-                "## 幻獸",
-                slug_line,
-                "",
-                "## 投稿暱稱（可標在圖鑑）",
-                field(text, "暱稱"),
-                "",
-                "## 說明",
-                field(text, "說明"),
-                "",
-                "## 圖片",
-                f"![pet]({image_md})",
-                "",
-                "---",
-                MARKER,
-            ]
-        )
-        title = (meta.get("title") or f"[幻獸圖] {pet_name}").strip()
-        subprocess.check_call(
-            ["gh", "issue", "create", "--title", title, "--body", body],
-            cwd=ROOT,
-        )
-        known += f"\nntfy:{ntfy_id}\n"
+        done.add(ntfy_id)
         made += 1
-        print("CREATED", ntfy_id, title)
-    print("ISSUES_DONE", made)
+        print("PUBLISHED", ntfy_id, slug)
+
+    save_published(done)
+    print("PUBLISH_DONE", made)
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=["download", "issues"])
+    parser.add_argument("mode", choices=["publish", "download", "issues"], nargs="?", default="publish")
     args = parser.parse_args()
-    if args.mode == "download":
-        return download()
-    return create_issues()
+    if args.mode in {"download", "issues"}:
+        return publish()
+    return publish()
 
 
 if __name__ == "__main__":

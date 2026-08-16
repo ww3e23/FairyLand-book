@@ -7,12 +7,13 @@
  *
  * 關掉後：圖鑑上的投稿按鈕與 /pets/submit 入口會消失（頁面改顯示暫停）。
  * 已經上站的玩家圖不會自動撤掉，要撤再另外說。
+ * 目前投稿會自動上圖鑑，不經審核。
  */
 export const PLAYER_PET_IMAGE_SUBMISSIONS = true;
 
 export const GITHUB_REPO = "ww3e23/FairyLand-book";
 
-/** 玩家投稿匣（站長審核頁會讀）。不要改成太好猜的字，改了要跟 ingest workflow 一起改。 */
+/** 玩家投稿匣。不要改成太好猜的字，改了要跟 ingest workflow 一起改。 */
 export const PET_SUBMIT_NTFY_TOPIC = "fairyland-xh28-pet-drop";
 
 /** 審核頁密碼的 SHA-256。要改密碼跟 Cursor 說即可。 */
