@@ -3,12 +3,17 @@ import { getClassBySlug } from "@/data/classes";
 import { getSkillBySlug } from "@/data/skills";
 import { getGuideBySlug } from "@/data/guides";
 import { getItemBySlug } from "@/data/items";
+import { getPetBySlug } from "@/data/pets";
 
-const PREFIX: Record<string, "classes" | "skills" | "guides" | "items"> = {
+const PREFIX: Record<
+  string,
+  "classes" | "skills" | "guides" | "items" | "pets"
+> = {
   classes: "classes",
   skills: "skills",
   guides: "guides",
   items: "items",
+  pets: "pets",
 };
 
 export function legacyRedirect(pathname: string): string | null {
@@ -27,7 +32,9 @@ export function legacyRedirect(pathname: string): string | null {
         ? getSkillBySlug(raw)
         : type === "guides"
           ? getGuideBySlug(raw)
-          : getItemBySlug(raw);
+          : type === "pets"
+            ? getPetBySlug(raw)
+            : getItemBySlug(raw);
 
   if (!entity) return null;
   if (entity.slug === raw) return null;

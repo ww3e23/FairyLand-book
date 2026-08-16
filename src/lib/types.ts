@@ -95,6 +95,36 @@ export interface ItemEntity extends BaseEntity {
   relatedItemIds?: string[];
 }
 
+export type PetElement =
+  | "metal"
+  | "wood"
+  | "water"
+  | "fire"
+  | "earth"
+  | "light"
+  | "dark";
+
+export interface PetEntity extends BaseEntity {
+  element: PetElement;
+  /** 偏向性，例如體質、智慧 */
+  bias: DataField;
+  spawnLevel: DataField;
+  spawnMaps: DataField;
+  skillSlots: DataField;
+  hp: DataField;
+  str: DataField;
+  sta: DataField;
+  agi: DataField;
+  int: DataField;
+  luk: DataField;
+  cha: DataField;
+  drops: DataField;
+  learnableSkills: DataField;
+  note: DataField;
+  /** 本站重繪插畫，非遊戲截圖 */
+  image: string;
+}
+
 export interface GuideEntity extends BaseEntity {
   guideType: "newbie" | "returning" | "class" | "dungeon" | "system";
   summary: string;

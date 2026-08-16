@@ -2,6 +2,7 @@ import { classes } from "./classes";
 import { skills } from "./skills";
 import { guides } from "./guides";
 import { items } from "./items";
+import { pets } from "./pets";
 import type { EntityType, SearchResult } from "@/lib/types";
 
 const TYPE_LABELS: Record<EntityType, string> = {
@@ -82,6 +83,19 @@ export function buildSearchIndex(): SearchResult[] {
     });
   }
 
+  for (const pet of pets) {
+    results.push({
+      id: pet.id,
+      type: "pet",
+      name: pet.name,
+      slug: pet.slug,
+      description: pet.note.value ?? pet.spawnMaps.value ?? "",
+      trustStatus: pet.trustStatus,
+      updatedAt: pet.indexedAt,
+      href: `/${TYPE_PATH.pet}/${pet.slug}/`,
+    });
+  }
+
   return results;
 }
 
@@ -93,7 +107,7 @@ export function search(
   if (!q) return [];
 
   const index = buildSearchIndex();
-  const allEntities = [...classes, ...skills, ...guides, ...items];
+  const allEntities = [...classes, ...skills, ...guides, ...items, ...pets];
 
   return index.filter((item) => {
     if (typeFilter && typeFilter !== "all" && item.type !== typeFilter)
@@ -118,6 +132,8 @@ export const HOT_SEARCHES = [
   "金力",
   "調水",
   "回鍋",
+  "金力",
+  "窩捲蟲",
 ];
 
 export const CATEGORY_STATS = [
@@ -151,10 +167,10 @@ export const CATEGORY_STATS = [
   },
   {
     label: "幻獸圖鑑",
-    count: "建設中",
+    count: `金系 ${pets.length} 隻`,
     href: "/pets",
     icon: "pet",
-    ready: false,
+    ready: true,
   },
   {
     label: "地圖怪物",
@@ -174,6 +190,7 @@ export const QUICK_LINKS = [
   { label: "回鍋指南", href: "/guides/returning-2026/" },
   { label: "結婚婚傳", href: "/guides/marriage/" },
   { label: "幻獸融合", href: "/guides/pet-fusion/" },
+  { label: "幻獸圖鑑", href: "/pets/" },
 ];
 
 export const NAV_ITEMS = [
@@ -185,7 +202,7 @@ export const NAV_ITEMS = [
   { label: "版本更新", href: "/updates", icon: "refresh", ready: true },
   { label: "情報回報", href: "/report", icon: "flag", ready: true },
   { label: "工作技能", href: "/jobs", icon: "hammer", ready: true },
-  { label: "幻獸", href: "/pets", icon: "pet", ready: false },
+  { label: "幻獸", href: "/pets", icon: "pet", ready: true },
   { label: "地圖怪物", href: "/maps", icon: "map", ready: false },
   { label: "任務攻略", href: "/quests", icon: "scroll", ready: false },
   { label: "遊戲工具", href: "/tools", icon: "wrench", ready: false },

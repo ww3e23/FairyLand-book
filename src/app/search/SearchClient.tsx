@@ -16,6 +16,7 @@ const FILTERS: { value: EntityType | "all"; label: string }[] = [
   { value: "skill", label: "技能" },
   { value: "item", label: "裝備" },
   { value: "guide", label: "攻略" },
+  { value: "pet", label: "幻獸" },
 ];
 
 export default function SearchClient() {
@@ -32,7 +33,7 @@ export default function SearchClient() {
     <AppShell showContext={false}>
       <PageHeader
         title="搜尋"
-        subtitle="搜尋職業、技能、道具、攻略……"
+        subtitle="搜尋職業、技能、道具、攻略、幻獸……"
       >
         <SearchBar defaultValue={q} autoFocus size="large" />
       </PageHeader>

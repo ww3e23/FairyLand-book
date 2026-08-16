@@ -399,10 +399,13 @@ export const guides: GuideEntity[] = [
 
 魔獸使想抓寵，有玩家覺得練一隻偏魅的專門丟球就好，戰力寵另說。
 
-鼓勵自己合看看，比只買現成有趣。玩家原文：[幻獸懶人包](https://forum.gamer.com.tw/C.php?bsn=4211&snA=11473)（本站改寫）。`,
+鼓勵自己合看看，比只買現成有趣。玩家原文：[幻獸懶人包](https://forum.gamer.com.tw/C.php?bsn=4211&snA=11473)（本站改寫）。
+
+野生外觀與地點見 [幻獸圖鑑](/pets/)（目前先收錄金系，插畫為本站重繪）。`,
     linkedEntityIds: [
       { type: "guide", id: "guide-returning-2026", label: "回鍋指南" },
       { type: "class", id: "class-beast-tamer", label: "幻獸師" },
+      { type: "pet", id: "pet-wo-juan-chong", label: "窩捲蟲" },
     ],
   },
   {
@@ -868,6 +871,15 @@ export const guides: GuideEntity[] = [
 ];
 
 export const updates: UpdateEntry[] = [
+  {
+    id: "update-10",
+    entityType: "pet",
+    entityId: "pet-wo-juan-chong",
+    entityName: "金系幻獸圖鑑",
+    changeSummary:
+      "幻獸圖鑑上線：先收錄金系 8 隻，本站重繪插畫，數值標為待確認",
+    publishedAt: "2026-08-16",
+  },
   {
     id: "update-9",
     entityType: "guide",

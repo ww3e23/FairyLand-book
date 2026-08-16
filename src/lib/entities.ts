@@ -3,6 +3,7 @@ import { getClassById } from "@/data/classes";
 import { getSkillById } from "@/data/skills";
 import { getGuideById } from "@/data/guides";
 import { getItemById } from "@/data/items";
+import { getPetById } from "@/data/pets";
 import { pageHref } from "@/lib/paths";
 
 export function getEntityHref(type: EntityType, id: string): string | null {
@@ -22,6 +23,10 @@ export function getEntityHref(type: EntityType, id: string): string | null {
     case "item": {
       const e = getItemById(id);
       return e ? pageHref("items", e.slug) : null;
+    }
+    case "pet": {
+      const e = getPetById(id);
+      return e ? pageHref("pets", e.slug) : null;
     }
     default:
       return null;

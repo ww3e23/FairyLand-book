@@ -81,6 +81,11 @@ export const SOURCES = {
     url: "https://forum.gamer.com.tw/C.php?bsn=4211&snA=11473",
     reliability: 3 as const,
   },
+  bahamutGoldPets: {
+    title: "巴哈姆特攻略百科：金系幻獸（標註資料來自敗家一族、Yuki）",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E9%87%91%E7%B3%BB%E5%B9%BB%E7%8D%B8",
+    reliability: 2 as const,
+  },
   bahamutLightSkills: {
     title: "巴哈精華區：光術師二轉技能任務",
     url: "https://forum.gamer.com.tw/G2.php?bsn=4211&sn=2039",
