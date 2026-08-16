@@ -3,11 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { PetImageCropper } from "@/components/pages/PetImageCropper";
 import { PLAYER_PET_IMAGE_SUBMISSIONS } from "@/data/features";
-import { blobFromDataUrl, submitPetImage } from "@/lib/submitPetImage";
+import { submitPetImage } from "@/lib/submitPetImage";
 import { withBasePath } from "@/lib/paths";
 
 function previewKey(slug: string) {
   return `pet-photo-preview:${slug}`;
+}
+
+function sentKey(slug: string) {
+  return `pet-photo-sent:${slug}`;
 }
 
 export function PetPhotoSlot({
@@ -25,8 +29,8 @@ export function PetPhotoSlot({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [localPreview, setLocalPreview] = useState<string | null>(null);
-  const [pendingFile, setPendingFile] = useState<File | null>(null);
   const [cropSrc, setCropSrc] = useState<string | null>(null);
+  const [retryFile, setRetryFile] = useState<File | null>(null);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState("");
@@ -39,8 +43,9 @@ export function PetPhotoSlot({
       : "aspect-square w-full max-w-sm";
 
   useEffect(() => {
-    if (live) return;
     try {
+      if (localStorage.getItem(sentKey(petSlug))) setSent(true);
+      if (live) return;
       const saved = localStorage.getItem(previewKey(petSlug));
       if (saved) setLocalPreview(saved);
     } catch {
@@ -57,23 +62,24 @@ export function PetPhotoSlot({
     if (!file || !file.type.startsWith("image/")) return;
     setSent(false);
     setSendError("");
+    setRetryFile(null);
     setCropSrc(URL.createObjectURL(file));
   }
 
-  async function sendToReview() {
-    const file =
-      pendingFile ??
-      (localPreview?.startsWith("data:") ? blobFromDataUrl(localPreview) : null);
-    if (!file) {
-      setSendError("請先選一張圖");
-      return;
-    }
+  async function sendFile(file: File) {
     setSending(true);
     setSendError("");
     try {
       await submitPetImage({ petName, petSlug, file });
       setSent(true);
+      setRetryFile(null);
+      try {
+        localStorage.setItem(sentKey(petSlug), "1");
+      } catch {
+        /* ignore */
+      }
     } catch (e) {
+      setRetryFile(file);
       setSendError(e instanceof Error ? e.message : "投稿失敗，請稍後再試");
     } finally {
       setSending(false);
@@ -113,34 +119,29 @@ export function PetPhotoSlot({
           e.target.value = "";
         }}
       />
-      {enabled && (pendingFile || localPreview) && !live && !sent && (
+      {enabled && sending && (
+        <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-coffee/55">
+          送出中…
+        </p>
+      )}
+      {enabled && sendError && retryFile && (
         <button
           type="button"
           disabled={sending}
           onClick={(e) => {
             e.stopPropagation();
-            void sendToReview();
+            void sendFile(retryFile);
           }}
           className="mt-2 w-full rounded-lg bg-coffee px-2 py-1.5 text-[11px] font-medium text-warm-white disabled:opacity-50"
         >
-          {sending ? "送出中…" : "確認投稿"}
+          再試一次
         </button>
-      )}
-      {enabled && sent && !live && (
-        <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-coffee/55">
-          已送到。約幾分鐘會出現在圖鑑，不用等審核。
-        </p>
       )}
       {enabled && sendError ? (
         <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-wine">
           {sendError}
         </p>
       ) : null}
-      {enabled && (pendingFile || localPreview) && !live && !sent && !sendError && (
-        <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-coffee/55">
-          已裁成相框比例。按確認投稿即可，不用註冊。
-        </p>
-      )}
       {cropSrc && (
         <PetImageCropper
           src={cropSrc}
@@ -151,7 +152,6 @@ export function PetPhotoSlot({
           onConfirm={(file, previewUrl) => {
             URL.revokeObjectURL(cropSrc);
             setCropSrc(null);
-            setPendingFile(file);
             setLocalPreview(previewUrl);
             const reader = new FileReader();
             reader.onload = () => {
@@ -164,6 +164,7 @@ export function PetPhotoSlot({
               }
             };
             reader.readAsDataURL(file);
+            void sendFile(file);
           }}
         />
       )}
