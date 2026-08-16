@@ -3,6 +3,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { ReportSection } from "@/components/layout/ContextPanel";
 import { TrustBadge } from "@/components/ui/TrustBadge";
 import { DataField, SourceList } from "@/components/ui/DataField";
+import { PlayerPetImageCta } from "@/components/pages/PlayerPetImageCta";
 import { PET_ELEMENT_LABEL } from "@/data/pets";
 import { VERSION_LABEL } from "@/data/version";
 import { pageHref, withBasePath } from "@/lib/paths";
@@ -51,13 +52,25 @@ export function PetDetail({ pet }: { pet: PetEntity }) {
         {" · "}地點／技能／掉寶整理自舊玩家表與百科，現服請以遊戲內為準
       </p>
 
-      <figure className="guide-figure mb-6 max-w-md">
+      <figure className="guide-figure mb-2 max-w-md">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={withBasePath(pet.image)} alt={`${pet.name}（本站重繪）`} />
+        <img
+          src={withBasePath(pet.image)}
+          alt={
+            pet.imageKind === "player"
+              ? `${pet.name}（玩家提供）`
+              : `${pet.name}（本站重繪）`
+          }
+        />
         <figcaption>
-          本站依外觀重繪的 Q 版插畫，不是遊戲截圖，也不是其他資料站的圖。
+          {pet.imageKind === "player"
+            ? `玩家${pet.imageCredit ? `「${pet.imageCredit}」` : ""}提供，經本站審核後使用。`
+            : "本站依外觀重繪的示意圖，不是遊戲截圖，也不是其他資料站的圖。若不像，歡迎提供遊戲內截圖。"}
         </figcaption>
       </figure>
+      <div className="mb-6">
+        <PlayerPetImageCta petSlug={pet.slug} />
+      </div>
 
       <div className="mb-6 grid grid-cols-3 gap-2 sm:grid-cols-7">
         <StatCell label="生命" value={pet.hp.value} />

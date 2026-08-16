@@ -872,6 +872,14 @@ export const guides: GuideEntity[] = [
 
 export const updates: UpdateEntry[] = [
   {
+    id: "update-11",
+    entityType: "pet",
+    entityId: "pet-wo-juan-chong",
+    entityName: "玩家提供幻獸圖",
+    changeSummary: "測試開放玩家投稿幻獸外觀圖（審核後才上站，可隨時關閉）",
+    publishedAt: "2026-08-16",
+  },
+  {
     id: "update-10",
     entityType: "pet",
     entityId: "pet-wo-juan-chong",

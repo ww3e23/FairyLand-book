@@ -1,0 +1,28 @@
+name: 提供幻獸圖片
+description: 投稿遊戲內截圖或自己畫的外觀。不要用其他攻略站的圖。
+title: "[幻獸圖] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        請把圖片**拖進下面欄位**或貼圖床連結。
+        只要遊戲內截圖／自己畫的。不要用其他攻略站、圖鑑站的圖。
+        審核後才會上圖鑑。
+  - type: input
+    id: pet
+    attributes:
+      label: 幻獸名稱
+      placeholder: 例如 窩捲蟲
+    validations:
+      required: true
+  - type: input
+    id: credit
+    attributes:
+      label: 投稿暱稱（可標在圖鑑）
+  - type: textarea
+    id: notes
+    attributes:
+      label: 說明與圖片
+      description: 可直接拖曳圖片到這裡。
+    validations:
+      required: true

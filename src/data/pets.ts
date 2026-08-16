@@ -41,6 +41,7 @@ function pet(
     indexedAt: "2026-08-16",
     sources: SRC,
     element: "metal",
+    imageKind: "site-redraw",
     ...partial,
   };
 }

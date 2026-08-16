@@ -121,8 +121,10 @@ export interface PetEntity extends BaseEntity {
   drops: DataField;
   learnableSkills: DataField;
   note: DataField;
-  /** 本站重繪插畫，非遊戲截圖 */
+  /** 圖鑑用圖（本站重繪或審核後的玩家圖） */
   image: string;
+  imageKind?: "site-redraw" | "player";
+  imageCredit?: string;
 }
 
 export interface GuideEntity extends BaseEntity {

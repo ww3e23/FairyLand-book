@@ -3,6 +3,8 @@ import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 import { PageHeader } from "@/components/layout/ContextPanel";
 import { PetsCatalog } from "@/components/pages/PetsCatalog";
+import { PlayerPetImageCta } from "@/components/pages/PlayerPetImageCta";
+import { PLAYER_PET_IMAGE_SUBMISSIONS } from "@/data/features";
 import { pets } from "@/data/pets";
 import { pageHref } from "@/lib/paths";
 
@@ -29,6 +31,11 @@ export default function PetsPage() {
         </Link>
         。
       </p>
+      {PLAYER_PET_IMAGE_SUBMISSIONS && (
+        <div className="mb-6">
+          <PlayerPetImageCta />
+        </div>
+      )}
       <PetsCatalog />
     </AppShell>
   );
