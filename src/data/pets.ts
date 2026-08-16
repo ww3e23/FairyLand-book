@@ -673,6 +673,8 @@ export const pets: PetEntity[] = [
   w({
     element: "metal",
     slug: "ka-jin-long",
+    image: "/art/pets/ka-jin-long.jpg",
+    imageKind: "player",
     name: "卡金龍",
     bias: "力量",
     spawnLevel: "36～40",
@@ -10541,6 +10543,8 @@ export const pets: PetEntity[] = [
   w({
     element: "light",
     slug: "ka-la-long-rare",
+    image: "/art/pets/ka-la-long-rare.jpg",
+    imageKind: "player",
     name: "卡拉龍",
     rare: true,
     bias: "力量",
