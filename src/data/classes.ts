@@ -430,7 +430,7 @@ export const classes: ClassEntity[] = [
         "光之信徒二轉。補血、復活等輔助更強，組隊效益高。需 60 級以上至修士公會轉職。",
       note: NOTE,
     },
-    relatedGuideIds: ["guide-class-overview"],
+    relatedGuideIds: ["guide-class-overview", "guide-light-mage-skills"],
   }),
   cls({
     id: "class-dark-mage",

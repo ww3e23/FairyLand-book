@@ -71,4 +71,19 @@ export const SOURCES = {
     url: "https://nfl.lager.com.tw/index/index_news?id=777",
     reliability: 5 as const,
   },
+  bahamutReturningLazy: {
+    title: "巴哈哈啦板：回鍋玩家系統整理（玩家文）",
+    url: "https://forum.gamer.com.tw/C.php?bsn=4211&snA=11421",
+    reliability: 3 as const,
+  },
+  bahamutPetLazy: {
+    title: "巴哈哈啦板：幻獸選擇與融合懶人包（玩家文）",
+    url: "https://forum.gamer.com.tw/C.php?bsn=4211&snA=11473",
+    reliability: 3 as const,
+  },
+  bahamutLightSkills: {
+    title: "巴哈精華區：光術師二轉技能任務",
+    url: "https://forum.gamer.com.tw/G2.php?bsn=4211&sn=2039",
+    reliability: 2 as const,
+  },
 } satisfies Record<string, SourceRef>;

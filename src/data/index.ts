@@ -114,9 +114,8 @@ export { TYPE_LABELS, TYPE_PATH };
 export const HOT_SEARCHES = [
   "光之使者",
   "狂戰士",
-  "獸王劈",
-  "調整藥丸",
-  "薯條",
+  "結婚",
+  "金力",
   "調水",
   "回鍋",
 ];
@@ -173,6 +172,8 @@ export const QUICK_LINKS = [
   { label: "轉生入門", href: "/guides/rebirth/" },
   { label: "基礎工作", href: "/guides/work-basics/" },
   { label: "回鍋指南", href: "/guides/returning-2026/" },
+  { label: "結婚婚傳", href: "/guides/marriage/" },
+  { label: "幻獸融合", href: "/guides/pet-fusion/" },
 ];
 
 export const NAV_ITEMS = [
