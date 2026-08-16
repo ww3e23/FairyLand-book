@@ -1,0 +1,74 @@
+name: Import pet image from issue
+
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Issue number
+        required: true
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  import:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      startsWith(github.event.issue.title, '[幻獸圖]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install pillow
+
+      - name: Fetch issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NUM="${{ github.event.issue.number }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            NUM="${{ github.event.inputs.issue }}"
+          fi
+          echo "ISSUE_NUM=$NUM" >> "$GITHUB_ENV"
+          gh api "repos/${{ github.repository }}/issues/$NUM" > /tmp/issue.json
+          gh api "repos/${{ github.repository }}/issues/$NUM/comments" > /tmp/comments.json
+
+      - name: Import image
+        id: import
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/import-pet-image.py /tmp/issue.json /tmp/comments.json
+
+      - name: Commit if changed
+        if: steps.import.outcome == 'success'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/art/pets src/data/pets.ts
+          if git diff --cached --quiet; then
+            echo "no changes"
+            exit 0
+          fi
+          git commit -m "從 Issue #${ISSUE_NUM} 匯入幻獸外觀圖"
+          git push
+
+      - name: Comment result
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NUM="$ISSUE_NUM"
+          if [ "${{ steps.import.outcome }}" != "success" ]; then
+            gh issue comment "$NUM" --body "還沒偵測到可用的圖片或幻獸編號。請把圖直接拖進這則 Issue（或留言），存檔後會再試一次。"
+            exit 0
+          fi
+          gh issue comment "$NUM" --body "已收到圖片，正在部署到圖鑑。幾分鐘後到 https://ww3e23.github.io/FairyLand-book/pets/ 重新整理即可看到。"

@@ -76,6 +76,9 @@ function w(row: {
   int?: DataField;
   luk?: DataField;
   cha?: DataField;
+  image?: string;
+  imageKind?: "player" | "site-redraw";
+  imageCredit?: string;
 }): PetEntity {
   const label = PET_ELEMENT_LABEL[row.element];
   return pet({
@@ -101,6 +104,9 @@ function w(row: {
     drops: { value: row.drops || undefined, status: U },
     learnableSkills: { value: row.learnableSkills, status: U },
     note: { value: row.note, status: U },
+    image: row.image,
+    imageKind: row.imageKind ?? (row.image ? "player" : undefined),
+    imageCredit: row.imageCredit,
   });
 }
 
