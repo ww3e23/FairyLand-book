@@ -29,7 +29,7 @@ export function PetsCatalog() {
 
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return pets.filter((pet) => {
+    const matched = pets.filter((pet) => {
       if (element === "rare" && !pet.rare) return false;
       if (element !== "all" && element !== "rare" && pet.element !== element)
         return false;
@@ -39,6 +39,10 @@ export function PetsCatalog() {
       if (!q) return true;
       return petSearchText(pet).includes(q);
     });
+    if (!q) return matched;
+    return [...matched].sort(
+      (a, b) => petNameMatchRank(a, q) - petNameMatchRank(b, q),
+    );
   }, [query, element, map, skill]);
 
   return (
@@ -109,6 +113,7 @@ export function PetsCatalog() {
 
       <p className="mb-3 text-xs text-coffee/50">
         {list.length} 筆 · 點卡片展開資料
+        {query.trim() ? " · 名稱相符的排在前面" : ""}
       </p>
 
       {list.length === 0 ? (
@@ -185,6 +190,18 @@ function petSearchText(pet: PetEntity) {
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
+}
+
+/** 數字越小越優先：全名／別名對上 > 名稱開頭 > 名稱包含 > 別名包含 > 其他欄位 */
+function petNameMatchRank(pet: PetEntity, q: string) {
+  const name = pet.name.toLowerCase();
+  const aliases = (pet.aliases ?? []).map((alias) => alias.toLowerCase());
+  if (name === q || aliases.includes(q)) return 0;
+  if (name.startsWith(q)) return 1;
+  if (name.includes(q)) return 2;
+  if (aliases.some((alias) => alias.startsWith(q))) return 3;
+  if (aliases.some((alias) => alias.includes(q))) return 4;
+  return 5;
 }
 
 function FilterChip({

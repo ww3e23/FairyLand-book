@@ -109,18 +109,37 @@ export function search(
   const index = buildSearchIndex();
   const allEntities = [...classes, ...skills, ...guides, ...items, ...pets];
 
-  return index.filter((item) => {
-    if (typeFilter && typeFilter !== "all" && item.type !== typeFilter)
-      return false;
+  return index
+    .filter((item) => {
+      if (typeFilter && typeFilter !== "all" && item.type !== typeFilter)
+        return false;
 
-    const entity = allEntities.find((e) => e.id === item.id);
-    const aliases = entity?.aliases ?? [];
-    const haystack = [item.name, item.description, ...aliases]
-      .join(" ")
-      .toLowerCase();
+      const entity = allEntities.find((e) => e.id === item.id);
+      const aliases = entity?.aliases ?? [];
+      const haystack = [item.name, item.description, ...aliases]
+        .join(" ")
+        .toLowerCase();
 
-    return haystack.includes(q) || item.name.toLowerCase().includes(q);
-  });
+      return haystack.includes(q) || item.name.toLowerCase().includes(q);
+    })
+    .sort((a, b) => {
+      const entityA = allEntities.find((e) => e.id === a.id);
+      const entityB = allEntities.find((e) => e.id === b.id);
+      return (
+        nameMatchRank(a.name, entityA?.aliases, q) -
+        nameMatchRank(b.name, entityB?.aliases, q)
+      );
+    });
+}
+
+function nameMatchRank(name: string, aliases: string[] | undefined, q: string) {
+  const n = name.toLowerCase();
+  const als = (aliases ?? []).map((alias) => alias.toLowerCase());
+  if (n === q || als.includes(q)) return 0;
+  if (n.startsWith(q)) return 1;
+  if (n.includes(q)) return 2;
+  if (als.some((alias) => alias.includes(q))) return 3;
+  return 4;
 }
 
 export { TYPE_LABELS, TYPE_PATH };
