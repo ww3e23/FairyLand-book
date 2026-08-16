@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { PetImageCropper } from "@/components/pages/PetImageCropper";
 import { pets } from "@/data/pets";
 import { PET_SUBMIT_OTHER, petSubmitOptions } from "@/lib/petImageSubmit";
 import { submitPetImage } from "@/lib/submitPetImage";
@@ -17,6 +18,8 @@ export function PetImageSubmitForm() {
   const [credit, setCredit] = useState("");
   const [notes, setNotes] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [cropSrc, setCropSrc] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
@@ -30,7 +33,7 @@ export function PetImageSubmitForm() {
 
   async function onSubmit() {
     if (!file) {
-      setError("請先選一張圖");
+      setError("請先選圖並完成裁切");
       return;
     }
     setBusy(true);
@@ -109,10 +112,28 @@ export function PetImageSubmitForm() {
         <input
           type="file"
           accept="image/*"
-          required
-          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          required={!file}
+          onChange={(e) => {
+            const next = e.target.files?.[0];
+            e.target.value = "";
+            if (!next) return;
+            setFile(null);
+            setPreview(null);
+            setCropSrc(URL.createObjectURL(next));
+          }}
           className="w-full rounded-lg border border-coffee/15 bg-warm-white/80 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-coffee/10 file:px-3 file:py-1 file:text-coffee"
         />
+        {preview && (
+          <div className="mt-3 flex items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={preview}
+              alt=""
+              className="h-24 w-24 rounded-xl border border-coffee/15 object-cover"
+            />
+            <p className="text-xs text-coffee/55">已裁成圖鑑正方形相框比例</p>
+          </div>
+        )}
       </div>
 
       <div>
@@ -144,15 +165,31 @@ export function PetImageSubmitForm() {
 
       <button
         type="submit"
-        disabled={busy}
+        disabled={busy || !file}
         className="w-full rounded-xl bg-coffee py-3 text-sm font-medium text-warm-white transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {busy ? "送出中…" : "送出投稿"}
       </button>
 
       <p className="text-center text-[11px] text-coffee/45">
-        不用註冊任何帳號。圖片不會立刻上線，站長過目後才會換上圖鑑。
+        選圖後會先裁切。不用註冊。審核後才會換上圖鑑。
       </p>
+
+      {cropSrc && (
+        <PetImageCropper
+          src={cropSrc}
+          onCancel={() => {
+            URL.revokeObjectURL(cropSrc);
+            setCropSrc(null);
+          }}
+          onConfirm={(next, url) => {
+            URL.revokeObjectURL(cropSrc);
+            setCropSrc(null);
+            setFile(next);
+            setPreview(url);
+          }}
+        />
+      )}
     </form>
   );
 }

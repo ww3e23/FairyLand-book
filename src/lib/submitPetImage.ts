@@ -2,6 +2,44 @@ import { PET_SUBMIT_NTFY_TOPIC } from "@/data/features";
 
 const MARKER = "來源：童協會投稿頁";
 
+/** 圖鑑相框比例。裁切框必須跟這個一致。 */
+export const PET_PHOTO_ASPECT = 1;
+export const PET_PHOTO_OUTPUT_SIZE = 900;
+
+export type SquareCrop = {
+  x: number;
+  y: number;
+  size: number;
+};
+
+export async function cropToSquareFile(
+  source: HTMLImageElement | ImageBitmap,
+  crop: SquareCrop,
+): Promise<File> {
+  const canvas = document.createElement("canvas");
+  canvas.width = PET_PHOTO_OUTPUT_SIZE;
+  canvas.height = PET_PHOTO_OUTPUT_SIZE;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("無法裁切圖片");
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(
+    source,
+    crop.x,
+    crop.y,
+    crop.size,
+    crop.size,
+    0,
+    0,
+    PET_PHOTO_OUTPUT_SIZE,
+    PET_PHOTO_OUTPUT_SIZE,
+  );
+  const blob = await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, "image/jpeg", 0.9),
+  );
+  if (!blob) throw new Error("無法輸出裁切圖");
+  return new File([blob], "pet.jpg", { type: "image/jpeg" });
+}
+
 export async function compressPetImage(file: File): Promise<Blob> {
   try {
     const bitmap = await createImageBitmap(file);

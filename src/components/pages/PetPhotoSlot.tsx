@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { PetImageCropper } from "@/components/pages/PetImageCropper";
 import { PLAYER_PET_IMAGE_SUBMISSIONS } from "@/data/features";
 import { blobFromDataUrl, submitPetImage } from "@/lib/submitPetImage";
 import { withBasePath } from "@/lib/paths";
@@ -25,6 +26,7 @@ export function PetPhotoSlot({
   const inputRef = useRef<HTMLInputElement>(null);
   const [localPreview, setLocalPreview] = useState<string | null>(null);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [cropSrc, setCropSrc] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState("");
@@ -53,22 +55,9 @@ export function PetPhotoSlot({
 
   function onFile(file: File | undefined) {
     if (!file || !file.type.startsWith("image/")) return;
-    const url = URL.createObjectURL(file);
-    setLocalPreview(url);
-    setPendingFile(file);
     setSent(false);
     setSendError("");
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        if (typeof reader.result === "string") {
-          localStorage.setItem(previewKey(petSlug), reader.result);
-        }
-      } catch {
-        /* quota */
-      }
-    };
-    reader.readAsDataURL(file);
+    setCropSrc(URL.createObjectURL(file));
   }
 
   async function sendToReview() {
@@ -104,7 +93,7 @@ export function PetPhotoSlot({
       >
         {shown ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={shown} alt={petName} className="h-full w-full object-contain" />
+          <img src={shown} alt={petName} className="h-full w-full object-cover" />
         ) : (
           <span className="flex h-full w-full flex-col items-center justify-center gap-1 px-2 text-center text-[11px] leading-snug text-coffee/45">
             <span className="text-lg" aria-hidden>
@@ -149,8 +138,34 @@ export function PetPhotoSlot({
       ) : null}
       {enabled && (pendingFile || localPreview) && !live && !sent && !sendError && (
         <p className="mt-1 max-w-[12rem] text-[11px] leading-snug text-coffee/55">
-          現在只在你電腦上看得到。按確認投稿即可，不用 GitHub、不用註冊。
+          已裁成相框比例。按確認投稿即可，不用註冊。
         </p>
+      )}
+      {cropSrc && (
+        <PetImageCropper
+          src={cropSrc}
+          onCancel={() => {
+            URL.revokeObjectURL(cropSrc);
+            setCropSrc(null);
+          }}
+          onConfirm={(file, previewUrl) => {
+            URL.revokeObjectURL(cropSrc);
+            setCropSrc(null);
+            setPendingFile(file);
+            setLocalPreview(previewUrl);
+            const reader = new FileReader();
+            reader.onload = () => {
+              try {
+                if (typeof reader.result === "string") {
+                  localStorage.setItem(previewKey(petSlug), reader.result);
+                }
+              } catch {
+                /* quota */
+              }
+            };
+            reader.readAsDataURL(file);
+          }}
+        />
       )}
       {live && imageKind === "player" && (
         <p className="mt-1 text-[11px] text-coffee/50">玩家提供</p>
