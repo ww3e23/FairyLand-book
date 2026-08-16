@@ -86,6 +86,41 @@ export const SOURCES = {
     url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E9%87%91%E7%B3%BB%E5%B9%BB%E7%8D%B8",
     reliability: 2 as const,
   },
+  bahamutWoodPets: {
+    title: "巴哈姆特攻略百科：木系幻獸",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E6%9C%A8%E7%B3%BB%E5%B9%BB%E7%8D%B8",
+    reliability: 2 as const,
+  },
+  bahamutWaterPets: {
+    title: "巴哈姆特攻略百科：水系幻獸",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E6%B0%B4%E7%B3%BB%E5%B9%BB%E7%8D%B8",
+    reliability: 2 as const,
+  },
+  bahamutFirePets: {
+    title: "巴哈姆特攻略百科：火系幻獸",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E7%81%AB%E7%B3%BB%E5%B9%BB%E7%8D%B8",
+    reliability: 2 as const,
+  },
+  bahamutEarthPets: {
+    title: "巴哈姆特攻略百科：土系幻獸",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E5%9C%9F%E7%B3%BB%E5%B9%BB%E7%8D%B8",
+    reliability: 2 as const,
+  },
+  bahamutLightPets: {
+    title: "巴哈姆特攻略百科：光系幻獸",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E5%85%89%E7%B3%BB%E5%B9%BB%E7%8D%B8",
+    reliability: 2 as const,
+  },
+  bahamutDarkPets: {
+    title: "巴哈姆特攻略百科：闇系幻獸",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E9%97%87%E7%B3%BB%E5%B9%BB%E7%8D%B8",
+    reliability: 2 as const,
+  },
+  bahamutRarePets: {
+    title: "巴哈姆特攻略百科：稀有幻獸",
+    url: "https://wiki2.gamer.com.tw/wiki.php?n=4707%3A%E7%A8%80%E6%9C%89%E5%B9%BB%E7%8D%B8",
+    reliability: 2 as const,
+  },
   bahamutLightSkills: {
     title: "巴哈精華區：光術師二轉技能任務",
     url: "https://forum.gamer.com.tw/G2.php?bsn=4211&sn=2039",

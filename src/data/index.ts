@@ -167,7 +167,7 @@ export const CATEGORY_STATS = [
   },
   {
     label: "幻獸圖鑑",
-    count: `金系 ${pets.length} 隻`,
+    count: `${pets.length} 筆`,
     href: "/pets",
     icon: "pet",
     ready: true,

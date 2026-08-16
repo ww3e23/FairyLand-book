@@ -121,10 +121,12 @@ export interface PetEntity extends BaseEntity {
   drops: DataField;
   learnableSkills: DataField;
   note: DataField;
-  /** 圖鑑用圖（本站重繪或審核後的玩家圖） */
-  image: string;
+  /** 審核後的玩家圖；沒有就不顯示 */
+  image?: string;
   imageKind?: "site-redraw" | "player";
   imageCredit?: string;
+  /** 百科列為稀有（隨機遇怪，不能黑暗儀式召喚） */
+  rare?: boolean;
 }
 
 export interface GuideEntity extends BaseEntity {

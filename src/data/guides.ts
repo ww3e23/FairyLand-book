@@ -872,6 +872,15 @@ export const guides: GuideEntity[] = [
 
 export const updates: UpdateEntry[] = [
   {
+    id: "update-12",
+    entityType: "pet",
+    entityId: "pet-wo-juan-chong",
+    entityName: "幻獸圖鑑全系收錄",
+    changeSummary:
+      "依百科補上七系野生出現表與稀有幻獸；本站插畫先拿掉，改等玩家提供",
+    publishedAt: "2026-08-16",
+  },
+  {
     id: "update-11",
     entityType: "pet",
     entityId: "pet-wo-juan-chong",

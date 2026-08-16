@@ -37,6 +37,7 @@ export function PetDetail({ pet }: { pet: PetEntity }) {
         </h1>
         <span className="rounded-full bg-cream px-2.5 py-0.5 text-xs text-coffee/70">
           {PET_ELEMENT_LABEL[pet.element]}系
+          {pet.rare ? " · 稀有" : ""}
         </span>
         <TrustBadge status={pet.trustStatus} />
       </div>
@@ -52,48 +53,52 @@ export function PetDetail({ pet }: { pet: PetEntity }) {
         {" · "}地點／技能／掉寶整理自舊玩家表與百科，現服請以遊戲內為準
       </p>
 
-      <figure className="guide-figure mb-2 max-w-md">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={withBasePath(pet.image)}
-          alt={
-            pet.imageKind === "player"
-              ? `${pet.name}（玩家提供）`
-              : `${pet.name}（本站重繪）`
-          }
-        />
-        <figcaption>
-          {pet.imageKind === "player"
-            ? `玩家${pet.imageCredit ? `「${pet.imageCredit}」` : ""}提供，經本站審核後使用。`
-            : "本站依外觀重繪的示意圖，不是遊戲截圖，也不是其他資料站的圖。若不像，歡迎提供遊戲內截圖。"}
-        </figcaption>
-      </figure>
+      {pet.image && (
+        <figure className="guide-figure mb-2 max-w-md">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={withBasePath(pet.image)}
+            alt={
+              pet.imageKind === "player"
+                ? `${pet.name}（玩家提供）`
+                : `${pet.name}`
+            }
+          />
+          <figcaption>
+            {pet.imageKind === "player"
+              ? `玩家${pet.imageCredit ? `「${pet.imageCredit}」` : ""}提供，經本站審核後使用。`
+              : "外觀圖"}
+          </figcaption>
+        </figure>
+      )}
       <div className="mb-6">
         <PlayerPetImageCta petSlug={pet.slug} />
       </div>
 
-      <div className="mb-6 grid grid-cols-3 gap-2 sm:grid-cols-7">
-        <StatCell label="生命" value={pet.hp.value} />
-        <StatCell label="力量" value={pet.str.value} />
-        <StatCell label="體質" value={pet.sta.value} />
-        <StatCell label="敏捷" value={pet.agi.value} />
-        <StatCell label="智慧" value={pet.int.value} />
-        <StatCell label="幸運" value={pet.luk.value} />
-        <StatCell label="魅力" value={pet.cha.value} />
-      </div>
+      {(pet.hp.value || pet.str.value) && (
+        <div className="mb-6 grid grid-cols-3 gap-2 sm:grid-cols-7">
+          <StatCell label="生命" value={pet.hp.value} />
+          <StatCell label="力量" value={pet.str.value} />
+          <StatCell label="體質" value={pet.sta.value} />
+          <StatCell label="敏捷" value={pet.agi.value} />
+          <StatCell label="智慧" value={pet.int.value} />
+          <StatCell label="幸運" value={pet.luk.value} />
+          <StatCell label="魅力" value={pet.cha.value} />
+        </div>
+      )}
 
       <div className="glass-card-strong rounded-xl p-5 md:p-6">
         <DataField label="偏向性" field={pet.bias} />
         <DataField label="出現等級" field={pet.spawnLevel} />
         <DataField label="出現地點" field={pet.spawnMaps} />
         <DataField label="技能欄" field={pet.skillSlots} />
-        <DataField label="生命" field={pet.hp} />
-        <DataField label="力量" field={pet.str} />
-        <DataField label="體質" field={pet.sta} />
-        <DataField label="敏捷" field={pet.agi} />
-        <DataField label="智慧" field={pet.int} />
-        <DataField label="幸運" field={pet.luk} />
-        <DataField label="魅力" field={pet.cha} />
+        {pet.hp.value && <DataField label="生命" field={pet.hp} />}
+        {pet.str.value && <DataField label="力量" field={pet.str} />}
+        {pet.sta.value && <DataField label="體質" field={pet.sta} />}
+        {pet.agi.value && <DataField label="敏捷" field={pet.agi} />}
+        {pet.int.value && <DataField label="智慧" field={pet.int} />}
+        {pet.luk.value && <DataField label="幸運" field={pet.luk} />}
+        {pet.cha.value && <DataField label="魅力" field={pet.cha} />}
         <DataField label="掉寶" field={pet.drops} />
         <DataField label="可學技能" field={pet.learnableSkills} />
         <DataField label="備註" field={pet.note} />

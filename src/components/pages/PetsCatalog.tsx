@@ -8,18 +8,21 @@ import {
   PET_ELEMENT_ORDER,
   pets,
 } from "@/data/pets";
-import { pageHref, withBasePath } from "@/lib/paths";
+import { pageHref } from "@/lib/paths";
 import type { PetElement } from "@/lib/types";
 
-type Filter = PetElement | "all";
+type Filter = PetElement | "all" | "rare";
 
 export function PetsCatalog() {
-  const [filter, setFilter] = useState<Filter>("metal");
+  const [filter, setFilter] = useState<Filter>("all");
 
-  const list = useMemo(
-    () => (filter === "all" ? pets : pets.filter((p) => p.element === filter)),
-    [filter],
-  );
+  const list = useMemo(() => {
+    if (filter === "all") return pets;
+    if (filter === "rare") return pets.filter((p) => p.rare);
+    return pets.filter((p) => p.element === filter);
+  }, [filter]);
+
+  const rareCount = pets.filter((p) => p.rare).length;
 
   return (
     <>
@@ -36,82 +39,44 @@ export function PetsCatalog() {
               key={el}
               active={filter === el}
               onClick={() => setFilter(el)}
-              label={`${PET_ELEMENT_LABEL[el]}系${count ? ` ${count}` : ""}`}
+              label={`${PET_ELEMENT_LABEL[el]}系 ${count}`}
             />
           );
         })}
+        <FilterChip
+          active={filter === "rare"}
+          onClick={() => setFilter("rare")}
+          label={`稀有 ${rareCount}`}
+        />
       </div>
 
       {list.length === 0 ? (
         <div className="glass-card rounded-xl p-6 text-sm text-coffee/70">
-          這個系別還沒收錄。目前先放金系常見的幾隻，其他系會陸續補上。
+          這個分類目前沒有資料。
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-2">
           {list.map((pet) => (
             <Link
               key={pet.id}
               href={pageHref("pets", pet.slug)}
-              className="glass-card flex gap-4 rounded-xl p-4 transition-shadow hover:shadow-md"
+              className="glass-card block rounded-xl p-3 transition-shadow hover:shadow-md"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={withBasePath(pet.image)}
-                alt=""
-                className="h-24 w-24 shrink-0 rounded-lg border border-coffee/10 bg-[#efe4cf] object-contain sm:h-28 sm:w-28"
-              />
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="text-base font-bold text-coffee">{pet.name}</h2>
-                  <span className="rounded-full bg-cream px-2 py-0.5 text-[10px] text-coffee/70">
-                    {PET_ELEMENT_LABEL[pet.element]} · {pet.bias.value ?? "偏向性未填"}
-                  </span>
-                  <TrustBadge status={pet.trustStatus} />
-                </div>
-                <dl className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-coffee/70 sm:grid-cols-3">
-                  <div>
-                    <dt className="text-coffee/40">地點</dt>
-                    <dd className="line-clamp-2">{pet.spawnMaps.value ?? "—"}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-coffee/40">出現等級</dt>
-                    <dd>{pet.spawnLevel.value ?? "—"}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-coffee/40">技能欄</dt>
-                    <dd>{pet.skillSlots.value ?? "—"}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-coffee/40">生命</dt>
-                    <dd>{pet.hp.value ?? "待確認"}</dd>
-                  </div>
-                  <div className="col-span-2 sm:col-span-2">
-                    <dt className="text-coffee/40">六維 力／體／敏／智／幸／魅</dt>
-                    <dd>
-                      {[
-                        pet.str.value,
-                        pet.sta.value,
-                        pet.agi.value,
-                        pet.int.value,
-                        pet.luk.value,
-                        pet.cha.value,
-                      ].every(Boolean)
-                        ? [
-                            pet.str.value,
-                            pet.sta.value,
-                            pet.agi.value,
-                            pet.int.value,
-                            pet.luk.value,
-                            pet.cha.value,
-                          ].join("／")
-                        : "待確認"}
-                    </dd>
-                  </div>
-                </dl>
-                <p className="mt-2 line-clamp-2 text-sm text-coffee/75">
-                  {pet.note.value}
-                </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="text-sm font-bold text-coffee">{pet.name}</h2>
+                <span className="rounded-full bg-cream px-2 py-0.5 text-[10px] text-coffee/70">
+                  {PET_ELEMENT_LABEL[pet.element]}
+                  {pet.rare ? " · 稀有" : ""} · {pet.bias.value ?? "偏向性未填"}
+                </span>
+                <TrustBadge status={pet.trustStatus} />
               </div>
+              <p className="mt-1 text-xs text-coffee/60">
+                {pet.spawnLevel.value ?? "等級未填"}
+                {" · "}
+                {pet.spawnMaps.value ?? "地點未填"}
+                {" · 技能欄 "}
+                {pet.skillSlots.value ?? "—"}
+              </p>
             </Link>
           ))}
         </div>
